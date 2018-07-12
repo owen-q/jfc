@@ -5,6 +5,7 @@ import io.owen.postit.handler.PostHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
@@ -19,6 +20,7 @@ import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 
 @Configuration
 @EnableWebFlux
+//@ComponentScan("io.owen.postit.handler")
 public class WebConfig implements WebFluxConfigurer {
 
     @Autowired
@@ -40,6 +42,16 @@ public class WebConfig implements WebFluxConfigurer {
     @Bean
     public RouterFunction<ServerResponse> message(){
         return RouterFunctions.route(RequestPredicates.POST("/message"), postHandler::handleMessage);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> postFriend(){
+        return RouterFunctions.route(RequestPredicates.POST("/friend"), postHandler::handleAddFriend);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> deleteFriend(){
+        return RouterFunctions.route(RequestPredicates.DELETE("/friend"), postHandler::handleDeleteFriend);
     }
 
     @Bean

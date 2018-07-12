@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+//@EnableAspectJAutoProxy
+//@ComponentScan("io.owen.postit")
 public class PostitApplication {
 
 	public static void main(String[] args) {

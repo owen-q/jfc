@@ -8,6 +8,7 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
+
 }
 
 apply plugin: 'java'
@@ -23,18 +24,27 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-devtools')
+
+	runtime('mysql:mysql-connector-java')
+
+	// https://mvnrepository.com/artifact/org.reflections/reflections
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+
+
 
 	// https://mvnrepository.com/artifact/com.h2database/h2
-	compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+//	compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+//	runtime('com.h2database:h2')
 
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-
+//	compile('org.springframework.boot:spring-boot-starter-jdbc')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
+	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
 }
