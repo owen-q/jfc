@@ -30,17 +30,14 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-devtools')
-
-	runtime('mysql:mysql-connector-java')
-
-	// https://mvnrepository.com/artifact/org.reflections/reflections
 	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 
+	// mysql
+//	runtime('mysql:mysql-connector-java')
 
 
-	// https://mvnrepository.com/artifact/com.h2database/h2
-//	compile group: 'com.h2database', name: 'h2', version: '1.4.197'
-//	runtime('com.h2database:h2')
+	// h2
+	runtime('com.h2database:h2')
 
 //	compile('org.springframework.boot:spring-boot-starter-jdbc')
 
