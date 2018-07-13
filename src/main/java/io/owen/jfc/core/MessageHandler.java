@@ -1,6 +1,7 @@
 package io.owen.jfc.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
 import org.slf4j.Logger;
@@ -61,6 +62,17 @@ public class MessageHandler {
                 // Generate respoonse
                 stateManager.reset(userKey);
             }
+
+            JsonNode jsonNode = responseFactory.createObjectNode("type", "buttons");
+            JsonNode arrayNode = responseFactory.createArrayNode();
+
+            ((ArrayNode) arrayNode).add("1");
+            ((ArrayNode) arrayNode).add("2");
+            ((ArrayNode) arrayNode).add("3");
+
+            JsonNode messageButtonNode = responseFactory.createButtonsKeyboard();
+            JsonNode messageNode = responseFactory.createMessage("hi", messageButtonNode);
+            result = responseFactory.createResult(messageNode);
 
             return result;
         });
