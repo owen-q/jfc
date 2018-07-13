@@ -46,8 +46,7 @@ public class ResponseFactory {
     public JsonNode createResult(JsonNode messageNode){
         JsonNode resultNode = new ObjectNode(this.jsonNodeFactory);
 
-        ((ObjectNode) resultNode).set(messageNode);
-        ((ObjectNode) resultNode).put
+        ((ObjectNode) resultNode).set("message", messageNode);
         return resultNode;
     }
 
