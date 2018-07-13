@@ -88,8 +88,8 @@ public class MessageHandler {
 
         JsonNode messageButtonNode = responseFactory.createButtonsKeyboard();
         JsonNode messageNode = responseFactory.createMessage("hi", messageButtonNode);
-        result = responseFactory.createResult(messageNode);
-        return result;
+//        result = responseFactory.createResult(messageNode);
+        return messageNode;
     }
 
     public JsonNode generateCommands(){
