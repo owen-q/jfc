@@ -43,10 +43,13 @@ public class ResponseFactory {
         return messageNode;
     }
 
-    public JsonNode createResult(JsonNode messageNode){
+    public JsonNode createResult(JsonNode messageNode, JsonNode keyboardNode){
         JsonNode resultNode = new ObjectNode(this.jsonNodeFactory);
 
         ((ObjectNode) resultNode).set("message", messageNode);
+
+        if(keyboardNode != null)
+            ((ObjectNode) resultNode).set("keyboard", keyboardNode);
         return resultNode;
     }
 
@@ -56,14 +59,19 @@ public class ResponseFactory {
         return keyboardNode;
     }
 
-    public ArrayNode createButtonsKeyboard(){
+    public JsonNode createButtonsKeyboard(){
+        JsonNode keyboardNode = new ObjectNode(this.jsonNodeFactory);
+        ((ObjectNode) keyboardNode).put("type", "buttons");
+
         ArrayNode buttons = new ArrayNode(this.jsonNodeFactory);
 
         for (UserState userState : UserState.values()){
             buttons.add(userState.getValue());
         }
 
-        return buttons;
+        ((ObjectNode) keyboardNode).set("buttons", buttons);
+
+        return keyboardNode;
     }
 
     public JsonNode createObjectNode(String key, String value){

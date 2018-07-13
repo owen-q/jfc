@@ -86,9 +86,10 @@ public class MessageHandler {
         ((ArrayNode) arrayNode).add("2");
         ((ArrayNode) arrayNode).add("3");
 
-        JsonNode messageButtonNode = responseFactory.createButtonsKeyboard();
+        JsonNode keyboardNode = responseFactory.createButtonsKeyboard();
+        JsonNode messageButtonNode = responseFactory.createMessageButtonNode("label","https://sleepy-crag-31942.herokuapp.com/");
         JsonNode messageNode = responseFactory.createMessage("hi", messageButtonNode);
-//        result = responseFactory.createResult(messageNode);
+        result = responseFactory.createResult(messageNode, keyboardNode);
         return messageNode;
     }
 
