@@ -2,7 +2,6 @@ package io.owen.jfc.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,7 @@ public class MessageHandler {
         this.stateList = StateList.getInstance();
     }
 
-    public Optional<JsonNode> handle(JsonNode jsonRequestBody){
+    public JsonNode handle(JsonNode jsonRequestBody){
         if(logger.isInfoEnabled())
             logger.info(jsonRequestBody.toString());
 
@@ -46,6 +45,7 @@ public class MessageHandler {
         // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
+        /*
         return optionalNextUserState.map(nextUserState -> {
             JsonNode result = null;
             CommandHandler currentCommandHandler = stateList.getCommandHandler(currentUserState.name());
@@ -76,6 +76,20 @@ public class MessageHandler {
 
             return result;
         });
+        */
+
+        JsonNode jsonNode = responseFactory.createObjectNode("type", "buttons");
+        JsonNode arrayNode = responseFactory.createArrayNode();
+        JsonNode result = null;
+
+        ((ArrayNode) arrayNode).add("1");
+        ((ArrayNode) arrayNode).add("2");
+        ((ArrayNode) arrayNode).add("3");
+
+        JsonNode messageButtonNode = responseFactory.createButtonsKeyboard();
+        JsonNode messageNode = responseFactory.createMessage("hi", messageButtonNode);
+        result = responseFactory.createResult(messageNode);
+        return result;
     }
 
     public JsonNode generateCommands(){

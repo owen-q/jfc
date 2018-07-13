@@ -67,8 +67,8 @@ public class PostHandler {
         return serverRequest.bodyToMono(JsonNode.class).map(messageHandler::handle).flatMap((result)->{
             
             if(logger.isInfoEnabled())
-                logger.info(result.get().toString());
-            return ServerResponse.ok().body(BodyInserters.fromObject(result.get()));
+                logger.info(result.toString());
+            return ServerResponse.ok().body(BodyInserters.fromObject(result));
         });
     }
 
