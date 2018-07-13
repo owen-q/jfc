@@ -50,6 +50,7 @@ public class ResponseFactory {
 
         if(keyboardNode != null)
             ((ObjectNode) resultNode).set("keyboard", keyboardNode);
+
         return resultNode;
     }
 

@@ -90,7 +90,7 @@ public class MessageHandler {
         JsonNode messageButtonNode = responseFactory.createMessageButtonNode("label","https://sleepy-crag-31942.herokuapp.com/");
         JsonNode messageNode = responseFactory.createMessage("hi", messageButtonNode);
         result = responseFactory.createResult(messageNode, keyboardNode);
-        return messageNode;
+        return result;
     }
 
     public JsonNode generateCommands(){
