@@ -32,10 +32,12 @@ public class WakeupChecker {
     }
 
 
-    @Before("execution(* io.owen.jfc.commands.*.*State.handle())")
+    @Before(value = "execution(* io.owen.jfc.commands.*.*State.handle())")
     public void onBeforeHandle(){
         if(logger.isInfoEnabled())
             logger.info("onBeforeHandle()");
+
+
     }
 
 }

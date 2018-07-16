@@ -1,5 +1,6 @@
 package io.owen.jfc.config;
 
+import io.owen.jfc.router.AuthRouters;
 import io.owen.jfc.router.HealRouters;
 import io.owen.jfc.router.PostRouters;
 import org.slf4j.Logger;
@@ -27,6 +28,13 @@ public class ApplicationRouters {
     @Autowired
     private HealRouters healRouters;
 
+    @Autowired
+    private AuthRouters authRouters;
+
+    @Bean
+    public RouterFunction<ServerResponse> auth(){
+        return RouterFunctions.route(RequestPredicates.POST("/auth"), authRouters::auth);
+    }
     @Bean
     public RouterFunction<ServerResponse> index(){
         return RouterFunctions.route(RequestPredicates.GET("/"), postRouters::index);

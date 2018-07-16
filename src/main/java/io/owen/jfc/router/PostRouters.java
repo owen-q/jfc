@@ -2,11 +2,12 @@ package io.owen.jfc.router;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import io.owen.jfc.repository.UserRepository;
 import io.owen.jfc.core.MessageHandler;
 import io.owen.jfc.core.ResponseFactory;
+import io.owen.jfc.core.StateList;
 import io.owen.jfc.core.StateManager;
 import io.owen.jfc.entity.User;
+import io.owen.jfc.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Component
 public class PostRouters {
@@ -32,8 +35,11 @@ public class PostRouters {
 
     private StateManager stateManager;
 
+    private StateList stateList;
+
     public PostRouters() {
         this.stateManager = StateManager.getInstance();
+        this.stateList = StateList.getInstance();
     }
 
     public Mono<ServerResponse> index(ServerRequest serverRequest){
@@ -44,15 +50,11 @@ public class PostRouters {
         if(logger.isInfoEnabled())
             logger.info(serverRequest.toString());
 
-//        stateManager.reset();
-
-        // TODO:
         JsonNode jsonNode = responseFactory.createObjectNode("type", "buttons");
         JsonNode arrayNode = responseFactory.createArrayNode();
+        List<String> mainCommands = stateList.getMainCommands();
 
-        ((ArrayNode) arrayNode).add("1");
-        ((ArrayNode) arrayNode).add("2");
-        ((ArrayNode) arrayNode).add("3");
+        mainCommands.stream().forEach(mainCommand -> ((ArrayNode) arrayNode).add(mainCommand));
 
         ((com.fasterxml.jackson.databind.node.ObjectNode) jsonNode).set("buttons", arrayNode);
 

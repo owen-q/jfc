@@ -11,13 +11,14 @@ import org.slf4j.LoggerFactory;
  * Created by owen_q on 2018. 7. 15..
  */
 @Aspect
-public class LogPreprocessor {
-    private Logger logger = LoggerFactory.getLogger(LogPreprocessor.class);
+public class CommandPreprocessor {
+    private Logger logger = LoggerFactory.getLogger(CommandPreprocessor.class);
 
     @Before("@annotation(Command)")
     public void beforeCommandAnnotation(ProceedingJoinPoint proceedingJoinPoint){
+        Command command = proceedingJoinPoint.getClass().getDeclaredAnnotation(Command.class);
+
         if(logger.isInfoEnabled()){
-            Command command = proceedingJoinPoint.getClass().getDeclaredAnnotation(Command.class);
             logger.info("Command:: {}", command.name());
         }
     }

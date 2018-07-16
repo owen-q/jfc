@@ -40,9 +40,15 @@ public class MessageHandler {
 
         UserState currentUserState = stateManager.get(userKey);
 
-
         // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
+
+        // content is command
+        // -> handle as new state
+
+
+        // content is user input
+        // ->
 
         return optionalNextUserState.map(nextUserState -> {
             JsonNode result = null;
@@ -50,7 +56,6 @@ public class MessageHandler {
 
             if(currentCommandHandler.isValidAction(nextUserState)){
                 // handle expected scenario
-
                 result = currentCommandHandler.handle(userKey, null);
             }
             else{

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by owen_q on 2018. 7. 11..
@@ -47,17 +48,29 @@ public class StateList {
                 commandHandlerMap.put(commandName, handler);
                 availableStateSet.add(currentState);
             }
+
+            this.availableStateSet.sort((o1, o2) -> {
+                if(o1.getId() < o2.getId())
+                    return -1;
+                else if (o1.getId() == o2.getId())
+                    return 0;
+                else
+                    return 1;
+            });
+
         }
         catch (Exception e){
             e.printStackTrace();
-
         }
         System.out.println("break");
-
     }
 
     public Optional<UserState> find(String userEnteredContent){
         return availableStateSet.stream().filter(actualUserState -> actualUserState.getValue().equals(userEnteredContent)).findAny();
+    }
+
+    public List<String> getMainCommands(){
+        return availableStateSet.stream().filter(actualUserState -> actualUserState.getId() < 10 ).map(mainCommandState -> mainCommandState.getValue()).collect(Collectors.toList());
     }
 
     public CommandHandler getCommandHandler(String stateName){
@@ -67,6 +80,4 @@ public class StateList {
     private static class Holder{
         private static StateList INSTANCE = new StateList();
     }
-
-
 }

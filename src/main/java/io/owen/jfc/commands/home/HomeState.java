@@ -19,7 +19,6 @@ public class HomeState implements CommandHandler {
 
     @Override
     public JsonNode handle(String userKey, Map<String, Object> attrs) {
-
         generateResponse();
         return null;
     }

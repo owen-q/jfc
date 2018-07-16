@@ -12,7 +12,6 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("io.franzbecker:gradle-lombok:1.14") //추가
 	}
-
 }
 
 apply plugin: 'java'
