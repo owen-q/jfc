@@ -31,8 +31,11 @@ public class StateManager {
 
     public UserState get(String userKey){
         UserState currentState = userStateMap.get(userKey);
-        if(currentState == null)
+        if(currentState == null) {
             currentState = UserState.HOME;
+
+            userStateMap.put(userKey, currentState);
+        }
 
         return currentState;
     }

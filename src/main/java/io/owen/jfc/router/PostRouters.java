@@ -1,8 +1,8 @@
-package io.owen.jfc.handler;
+package io.owen.jfc.router;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import io.owen.jfc.UserRepository;
+import io.owen.jfc.repository.UserRepository;
 import io.owen.jfc.core.MessageHandler;
 import io.owen.jfc.core.ResponseFactory;
 import io.owen.jfc.core.StateManager;
@@ -17,10 +17,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-//@Aspect
 @Component
-public class PostHandler {
-    private Logger logger = LoggerFactory.getLogger(PostHandler.class);
+public class PostRouters {
+    private Logger logger = LoggerFactory.getLogger(PostRouters.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -33,7 +32,7 @@ public class PostHandler {
 
     private StateManager stateManager;
 
-    public PostHandler() {
+    public PostRouters() {
         this.stateManager = StateManager.getInstance();
     }
 
@@ -44,6 +43,7 @@ public class PostHandler {
     public Mono<ServerResponse> handleKeyboards(ServerRequest serverRequest){
         if(logger.isInfoEnabled())
             logger.info(serverRequest.toString());
+
 //        stateManager.reset();
 
         // TODO:

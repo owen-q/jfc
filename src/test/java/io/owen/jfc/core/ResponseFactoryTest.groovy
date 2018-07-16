@@ -29,7 +29,7 @@ class ResponseFactoryTest extends Specification {
         JsonNode givenMessageButton
 
         when:
-        JsonNode messageButtonNode = responseFactory.createMessage(givenText, givenMessageButton)
+        JsonNode messageButtonNode = responseFactory.createMessageNode(givenText, givenMessageButton)
 
         then:
         messageButtonNode.get("label").asText() == givenLabel

@@ -4,20 +4,14 @@ package io.owen.jfc.commands;
  * Created by owen_q on 2018. 7. 10..
  */
 public enum UserState {
-    NONE("메인", -1),
+    HOME("홈", 0),
 
-    HOME("메인", 0),
+    AUTH_BANNER("인증", 1),
+    AUTH_INPUT("인증-입력",10),
 
-    ADD("추가하기", 1),
-    ADD_ENTER("입력", 10),
-    ADD_CONFIRM("확인", 100),
-    ADD_SAVE("저장", 1000),
-
-    SELECT("조회하기", 2),
-    SELECT_YESTERDAY("어제", 20),
-    SELECT_TODAY("오늘", 40),
-
-    INPUT("값", 9);
+    MATCH_LIST("경기일정",2),
+    MATCH_ATTEND("참석", 20),
+    MATCH_NONATTEND("불참", 200);
 
     private String value;
     private int id;

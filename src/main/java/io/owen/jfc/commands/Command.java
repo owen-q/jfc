@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface Command {
     // name
-    String name();
+    String name() default "";
 
     // current state
     UserState state();

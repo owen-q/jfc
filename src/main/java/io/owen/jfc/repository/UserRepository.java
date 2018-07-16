@@ -1,4 +1,4 @@
-package io.owen.jfc;
+package io.owen.jfc.repository;
 
 import io.owen.jfc.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
