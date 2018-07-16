@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Configuration
-@PropertySource("working-time.properties")
+@PropertySource("classpath:working-time.properties")
 @Component
 public class ApplicationConfig {
     @Value("${working.time.open}")
