@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by owen_q on 2018. 7. 17..
@@ -23,7 +23,7 @@ public class Match {
 
     @OneToMany
     @JoinColumn(name = "user_key")
-    private Collection<User> attendList;
+    private List<User> attendList;
 
     public Match() {
     }
