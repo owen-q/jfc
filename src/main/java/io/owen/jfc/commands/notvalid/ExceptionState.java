@@ -21,6 +21,13 @@ public class ExceptionState implements CommandHandler {
     }
 
     @Override
+    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
+
+
+        return null;
+    }
+
+    @Override
     public JsonNode handle(String userKey, Map<String, Object> attrs) {
         return null;
     }

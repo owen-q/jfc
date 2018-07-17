@@ -14,7 +14,18 @@ public interface CommandHandler {
     ResponseFactory responseFactory = ResponseFactory.getInstance();
 
 //    boolean isValidAction(UserState nextUserState);
+
+
+
     JsonNode handle(String userKey, Map<String, Object> attrs);
+
+    /**
+     * User Content가 command일때, 해당 command의 옵션들을 보여준다
+     * @param userKey
+     * @param attrs
+     * @return
+     */
+    JsonNode printOptions(String userKey, Map<String, Object> attrs);
     JsonNode generateResponse();
 
     default boolean isValidAction(UserState nextUserState){

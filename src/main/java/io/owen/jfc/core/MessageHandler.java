@@ -43,31 +43,24 @@ public class MessageHandler {
         // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
-        // content is command
-        // -> handle as new state
-
-
-        // content is user input
-        // ->
-
         return optionalNextUserState.map(nextUserState -> {
+            CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
             JsonNode result = null;
-            CommandHandler currentCommandHandler = stateList.getCommandHandler(currentUserState.name());
 
-            if(currentCommandHandler.isValidAction(nextUserState)){
-                // handle expected scenario
-                result = currentCommandHandler.handle(userKey, null);
-            }
-            else{
-                // handle exceptional case
-                // Go to main hierachy & set state
+            result = expectedCommandHandler.printOptions(userKey, null);
 
-                // Generate respoonse
-                stateManager.reset(userKey);
-            }
+            stateManager.change(userKey, nextUserState);
 
             return result;
-        }).orElse(null);
+        }).orElseGet(()->{
+            // content is user input
+            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
+            JsonNode result = null;
+
+            result = expectedCommandHandler.handle(userKey, null);
+
+            return result;
+        });
     }
 
     public JsonNode generateCommands(){

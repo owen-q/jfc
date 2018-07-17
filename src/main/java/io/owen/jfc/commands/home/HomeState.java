@@ -20,7 +20,14 @@ public class HomeState implements CommandHandler {
     @Override
     public JsonNode handle(String userKey, Map<String, Object> attrs) {
         generateResponse();
+
         return null;
+    }
+
+    @Override
+    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
+        JsonNode result = generateResponse();
+        return result;
     }
 
     @Override

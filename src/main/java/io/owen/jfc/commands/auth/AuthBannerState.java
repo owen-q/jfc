@@ -25,15 +25,17 @@ public class AuthBannerState implements CommandHandler {
     }
 
     @Override
+    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
+        return generateResponse();
+    }
+
+    @Override
     public JsonNode generateResponse() {
-
-        /*
         JsonNode messageNode = responseFactory.createMessageNode("이름을 입력해주세요", null);
-        JsonNode messageButtonNode = responseFactory.createButtonsKeyboardNode();
-        JsonNode messageNode = responseFactory.createMessageNode("hi", messageButtonNode);
-        result = responseFactory.createResult(messageNode);
-        */
+        JsonNode keyboardNode = responseFactory.createTextKeyboardNode();
 
-        return null;
+        JsonNode result = responseFactory.createResult(messageNode, keyboardNode);
+
+        return result;
     }
 }
