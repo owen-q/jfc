@@ -4,13 +4,14 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
+
+//		maven {
+//			url "https://plugins.gradle.org/m2/"
+//		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("io.franzbecker:gradle-lombok:1.14") //추가
+//		classpath("io.franzbecker:gradle-lombok:1.14") //추가
 	}
 }
 
@@ -18,7 +19,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'io.franzbecker.gradle-lombok' //추가
+//apply plugin: 'io.franzbecker.gradle-lombok' //추가
 
 group = 'io.owen'
 version = '0.0.1-SNAPSHOT'
@@ -43,7 +44,8 @@ dependencies {
 	// h2
 	runtime('com.h2database:h2')
 
-	compileOnly('org.projectlombok:lombok:1.18.0') //추가
+//	
+// compileOnly('org.projectlombok:lombok:1.18.0') //추가
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
