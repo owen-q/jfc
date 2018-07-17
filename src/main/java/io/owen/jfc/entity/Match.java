@@ -19,6 +19,7 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "created_time")
     private ZonedDateTime createdTime;
 
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
@@ -26,6 +27,7 @@ public class Match {
     private List<User> attendList;
 
     public Match() {
+
     }
 
 }
