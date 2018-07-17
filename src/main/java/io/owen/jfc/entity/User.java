@@ -1,9 +1,6 @@
 package io.owen.jfc.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by owen_q on 2018. 7. 9..
@@ -18,6 +15,10 @@ public class User {
 
     @Column(name = "is_authored")
     private boolean isAuthored = false;
+
+    @ManyToOne
+    @Column
+    private Match match;
 
     public User() {
     }
