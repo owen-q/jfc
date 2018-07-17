@@ -10,6 +10,8 @@ import javax.persistence.*;
 public class User {
 
     @Id
+    private long id;
+
     @Column(name = "user_key")
     private String userKey;
 
