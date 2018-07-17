@@ -40,8 +40,8 @@ public class StateList {
             for(Class commandClass : commands) {
                 Command commandAnnotation = (Command) commandClass.getDeclaredAnnotation(Command.class);
 
-                commandName = commandAnnotation.name();
                 currentState = commandAnnotation.state();
+                commandName = currentState.getValue();
 
                 handler = (CommandHandler) commandClass.getConstructor().newInstance();
 
@@ -62,6 +62,7 @@ public class StateList {
         catch (Exception e){
             e.printStackTrace();
         }
+
         System.out.println("break");
     }
 
