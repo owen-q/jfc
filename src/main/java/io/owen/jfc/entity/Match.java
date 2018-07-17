@@ -1,21 +1,32 @@
 package io.owen.jfc.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Collection;
 
 /**
  * Created by owen_q on 2018. 7. 17..
  */
 @Entity
 @Table(name = "matches")
+@Getter
+@Setter
 public class Match {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private ZonedDateTime createdTime;
+
+    @OneToMany
+    @JoinColumn(name = "user_key")
+    private Collection<User> attendList;
+
+    public Match() {
+    }
 
 }

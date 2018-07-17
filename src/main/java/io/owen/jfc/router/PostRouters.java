@@ -33,6 +33,8 @@ public class PostRouters {
     @Autowired
     private MessageHandler messageHandler;
 
+
+
     private StateManager stateManager;
 
     private StateList stateList;
@@ -93,6 +95,8 @@ public class PostRouters {
 
         return ServerResponse.ok().build();
     }
+
+
 
     public Mono<ServerResponse> handleDeleteFriend(ServerRequest serverRequest){
         if(logger.isInfoEnabled()) {

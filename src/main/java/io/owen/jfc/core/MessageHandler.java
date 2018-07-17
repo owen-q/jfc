@@ -3,11 +3,14 @@ package io.owen.jfc.core;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.entity.User;
+import io.owen.jfc.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,6 +23,9 @@ public class MessageHandler {
 
     @Autowired
     private ResponseFactory responseFactory;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private StateManager stateManager;
 
@@ -40,29 +46,51 @@ public class MessageHandler {
 
         UserState currentUserState = stateManager.get(userKey);
 
-        // change user input 'content' to next command
-        Optional<UserState> optionalNextUserState = stateList.find(content);
+        JsonNode handleResult = null;
 
-        // check auth . . . . ?
+        // check auth
+        if(isAuthoredUser(userKey)){
+            // change user input 'content' to next command
+            Optional<UserState> optionalNextUserState = stateList.find(content);
 
-        return optionalNextUserState.map(nextUserState -> {
-            CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
-            JsonNode result = null;
 
-            result = expectedCommandHandler.printOptions(userKey, null);
+            handleResult = optionalNextUserState.map(nextUserState -> {
+                CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
+                JsonNode result = null;
 
-            stateManager.change(userKey, nextUserState);
+                result = expectedCommandHandler.printOptions(userKey, null);
 
-            return result;
-        }).orElseGet(()->{
-            // content is user input
-            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-            JsonNode result = null;
+                stateManager.change(userKey, nextUserState);
 
-            result = expectedCommandHandler.handle(userKey, null);
+                return result;
+            }).orElseGet(()->{
+                // content is user input
+                CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
+                JsonNode result = null;
 
-            return result;
-        });
+                result = expectedCommandHandler.handle(userKey, null);
+
+                return result;
+            });
+
+        }
+        else{
+            // unAuthored User
+            // TODO: Refactoring
+            List<String> mainCommandList = stateList.getMainCommands();
+
+            JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
+            JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(mainCommandList);
+
+            handleResult = responseFactory.createResult(messageNode, keyboardNode);
+        }
+
+        return handleResult;
+    }
+
+    private boolean isAuthoredUser(String userKey){
+        User userInfo = userRepository.findByUserKey(userKey);
+        return userInfo.isAuthored();
     }
 
     public JsonNode generateCommands(){

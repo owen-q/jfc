@@ -13,6 +13,7 @@ import javax.persistence.Table;
 public class User {
 
     @Id
+    @Column(name = "user_key")
     private String userKey;
 
     @Column(name = "is_authored")
