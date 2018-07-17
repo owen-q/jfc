@@ -2,12 +2,12 @@ package io.owen.jfc.router;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import io.owen.jfc.common.entity.User;
+import io.owen.jfc.common.repository.UserRepository;
 import io.owen.jfc.core.MessageHandler;
 import io.owen.jfc.core.ResponseFactory;
 import io.owen.jfc.core.StateList;
 import io.owen.jfc.core.StateManager;
-import io.owen.jfc.entity.User;
-import io.owen.jfc.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
