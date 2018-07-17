@@ -17,7 +17,7 @@ public class User {
     private boolean isAuthored = false;
 
     @ManyToOne
-    @Column
+    @JoinColumn(name = "id")
     private Match match;
 
     public User() {
