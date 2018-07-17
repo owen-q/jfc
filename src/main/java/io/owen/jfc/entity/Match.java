@@ -24,8 +24,7 @@ public class Match {
     @Column(name = "created_time")
     private ZonedDateTime createdTime;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_key")
+    @OneToMany(mappedBy = "match")
     private List<User> attendList;
 
     public Match() {
