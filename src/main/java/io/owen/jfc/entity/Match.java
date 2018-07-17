@@ -15,7 +15,6 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Match {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
