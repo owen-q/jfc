@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 /**
  * Created by owen_q on 2018. 7. 16..
  */
-@Command(state = UserState.HOME, availableNextState = {UserState.AUTH_BANNER, UserState.MATCH_ATTEND})
+@Command(state = UserState.HOME, availableNextState = {UserState.AUTH_BANNER, UserState.MATCH_LIST, UserState.HOME})
 public class HomeState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(HomeState.class);
 

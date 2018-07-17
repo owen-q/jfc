@@ -1,8 +1,9 @@
 package io.owen.jfc.entity;
 
-import io.owen.jfc.commands.UserState;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by owen_q on 2018. 7. 9..
@@ -16,10 +17,6 @@ public class User {
 
     @Column(name = "is_authored")
     private boolean isAuthored = false;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column
-    private UserState userState;
 
     public User() {
     }
@@ -43,6 +40,4 @@ public class User {
     public void setAuthored(boolean authored) {
         isAuthored = authored;
     }
-
-
 }

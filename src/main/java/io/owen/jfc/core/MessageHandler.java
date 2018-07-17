@@ -43,6 +43,8 @@ public class MessageHandler {
         // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
+        // check auth . . . . ?
+
         return optionalNextUserState.map(nextUserState -> {
             CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
             JsonNode result = null;

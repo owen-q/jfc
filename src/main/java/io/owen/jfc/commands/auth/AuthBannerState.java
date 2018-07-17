@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by owen_q on 2018. 7. 15..
  */
-@Command(state = UserState.AUTH_BANNER, availableNextState = UserState.AUTH_INPUT)
+@Command(state = UserState.AUTH_BANNER, availableNextState = {UserState.AUTH_INPUT, UserState.HOME})
 public class AuthBannerState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(AuthBannerState.class);
 

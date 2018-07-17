@@ -43,7 +43,7 @@ dependencies {
 //	runtime('mysql:mysql-connector-java')
 
 	// h2
-//	runtime('com.h2database:h2')
+	runtime('com.h2database:h2')
 
 	// postgresql
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.3'

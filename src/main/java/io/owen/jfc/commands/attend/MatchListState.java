@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by owen_q on 2018. 7. 17..
  */
-@Command(state = UserState.MATCH_LIST, availableNextState = {UserState.MATCH_ATTEND, UserState.MATCH_NONATTEND})
+@Command(state = UserState.MATCH_LIST, availableNextState = {UserState.MATCH_ATTEND, UserState.MATCH_NONATTEND, UserState.HOME})
 public class MatchListState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(MatchListState.class);
 
