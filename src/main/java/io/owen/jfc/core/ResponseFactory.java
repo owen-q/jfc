@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.owen.jfc.commands.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by owen_q on 2018. 7. 10..
@@ -62,15 +63,13 @@ public class ResponseFactory {
         return keyboardNode;
     }
 
-    public JsonNode createButtonsKeyboardNode(String[] buttonItemList){
+    public JsonNode createButtonsKeyboardNode(List<String> buttonItemList){
         JsonNode keyboardNode = new ObjectNode(this.jsonNodeFactory);
         ((ObjectNode) keyboardNode).put("type", "buttons");
 
         ArrayNode buttons = new ArrayNode(this.jsonNodeFactory);
 
-        for (UserState userState : UserState.values()){
-            buttons.add(userState.getValue());
-        }
+        buttonItemList.forEach(buttonItem -> buttons.add(buttonItem));
 
         ((ObjectNode) keyboardNode).set("buttons", buttons);
 

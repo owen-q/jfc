@@ -7,7 +7,9 @@ import io.owen.jfc.commands.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -38,7 +40,7 @@ public class HomeState implements CommandHandler {
 
         JsonNode messageNode = responseFactory.createMessageNode("메인화면", null);
 
-        String[] stateNameArr = (String[]) Stream.of(availableStates).map(userState -> userState.getValue()).toArray();
+        List<String> stateNameArr = Stream.of(availableStates).map(userState -> userState.getValue()).collect(Collectors.toList());
         JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(stateNameArr);
 
         JsonNode result = responseFactory.createResult(messageNode, keyboardNode);
