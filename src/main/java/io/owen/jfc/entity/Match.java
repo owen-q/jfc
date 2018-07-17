@@ -15,8 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Match {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "match_id")
     private long id;
 
     @Column(name = "created_time")

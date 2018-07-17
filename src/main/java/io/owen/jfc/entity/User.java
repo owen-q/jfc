@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
+    @Column(name = "user_id")
     private long id;
 
     @Column(name = "user_key")
@@ -19,7 +20,7 @@ public class User {
     private boolean isAuthored = false;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "match_id")
     private Match match;
 
     public User() {

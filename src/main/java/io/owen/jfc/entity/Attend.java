@@ -11,5 +11,6 @@ import javax.persistence.*;
 public class Attend {
     @Id
     @GeneratedValue
+    @Column(name = "attend_id")
     private long id;
 }
