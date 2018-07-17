@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,6 +62,10 @@ public class ResponseFactory {
         JsonNode keyboardNode = new ObjectNode(this.jsonNodeFactory);
         ((ObjectNode) keyboardNode).put("type", "text");
         return keyboardNode;
+    }
+
+    public JsonNode createButtonsKeyboardNode(String[] buttomItemList){
+        return this.createButtonsKeyboardNode(Arrays.asList(buttomItemList));
     }
 
     public JsonNode createButtonsKeyboardNode(List<String> buttonItemList){
