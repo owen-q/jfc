@@ -45,45 +45,42 @@ public class MessageHandler {
         String content = jsonRequestBody.get("content").asText();
 
         UserState currentUserState = stateManager.get(userKey);
+        Optional<UserState> optionalNextUserState = stateList.find(content);
 
         JsonNode handleResult = null;
 
-        // check auth
-        if(isAuthoredUser(userKey)){
-            // change user input 'content' to next command
-            Optional<UserState> optionalNextUserState = stateList.find(content);
-
-
-            handleResult = optionalNextUserState.map(nextUserState -> {
+        // change user input 'content' to next command
+        handleResult = optionalNextUserState.map(nextUserState -> {
+            JsonNode result = null;
+            if(isAuthoredUser(userKey)){
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
-                JsonNode result = null;
 
                 result = expectedCommandHandler.printOptions(userKey, null);
 
                 stateManager.change(userKey, nextUserState);
+            }
+            else{
+                // unAuthored user
 
-                return result;
-            }).orElseGet(()->{
-                // content is user input
-                CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-                JsonNode result = null;
+                List<String> mainCommandList = stateList.getMainCommands();
 
-                result = expectedCommandHandler.handle(userKey, null);
+                JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
+                JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(mainCommandList);
 
-                return result;
-            });
+                result = responseFactory.createResult(messageNode, keyboardNode);
+            }
 
-        }
-        else{
-            // unAuthored User
-            // TODO: Refactoring
-            List<String> mainCommandList = stateList.getMainCommands();
+            return result;
+        }).orElseGet(()->{
+            // content is user input
+            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
+            JsonNode result = null;
 
-            JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
-            JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(mainCommandList);
+            result = expectedCommandHandler.handle(userKey, null);
 
-            handleResult = responseFactory.createResult(messageNode, keyboardNode);
-        }
+            return result;
+        });
+
 
         return handleResult;
     }
