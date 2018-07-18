@@ -1,6 +1,5 @@
 package io.owen.jfc.aop;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.util.Wakeup;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -30,7 +29,6 @@ public class WakeupChecker {
 
     @Before("io.owen.jfc.aop.WakeupChecker.httpRequestLog()")
     public void onBefore(JoinPoint joinPoint){
-        
         if(logger.isInfoEnabled()) {
             Stream.of(joinPoint.getArgs()).filter(arg -> arg instanceof ServerRequest).forEach(serverRequest -> {
                 StringBuilder requestLogBuilder = new StringBuilder();
@@ -43,9 +41,13 @@ public class WakeupChecker {
                     ((ServerRequest) serverRequest).queryParams().keySet().stream().forEach(queryParam -> requestLogBuilder.append(queryParam));
                 }
                 else if (((ServerRequest) serverRequest).method() == HttpMethod.POST){
+
+                    // TODO:
+                    /*
                     ((ServerRequest) serverRequest).bodyToMono(JsonNode.class).subscribe(jsonNode -> {
                         requestLogBuilder.append(jsonNode.toString());
                     });
+                    */
                 }
 
                 logger.info(requestLogBuilder.toString());
