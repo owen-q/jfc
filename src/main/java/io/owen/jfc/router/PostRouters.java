@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Component
+
 public class PostRouters {
     private Logger logger = LoggerFactory.getLogger(PostRouters.class);
 
@@ -49,8 +50,8 @@ public class PostRouters {
     }
 
     public Mono<ServerResponse> handleKeyboards(ServerRequest serverRequest){
-        if(logger.isInfoEnabled())
-            logger.info(serverRequest.toString());
+//        if(logger.isInfoEnabled())
+//            logger.info(serverRequest.toString());
 
         JsonNode jsonNode = responseFactory.createObjectNode("type", "buttons");
         JsonNode arrayNode = responseFactory.createArrayNode();
