@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.PostConstruct;
 import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -42,10 +43,10 @@ public class Wakeup {
     }
 
     public void runTimer(){
-        if(logger.isInfoEnabled())
-            logger.info("runTimer() {}", getNow());
-
         int duration = getTimerDuration(getNow());
+
+        if(logger.isInfoEnabled())
+            logger.info("[{}] runTimer() with interval {} minutes", getNow(), duration);
 
         // Stop timer for shutdown app
         if(duration == -1)
@@ -99,6 +100,11 @@ public class Wakeup {
                 if(logger.isInfoEnabled())
                     logger.info("Self-healed, {}", getNow().toString());
         });
+    }
+
+    @PostConstruct
+    public void afterInit(){
+        runTimer();
     }
 
     private static class Holder {
