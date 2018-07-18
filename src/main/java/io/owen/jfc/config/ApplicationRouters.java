@@ -57,7 +57,7 @@ public class ApplicationRouters {
 
     @Bean
     public RouterFunction<ServerResponse> deleteFriend(){
-        return RouterFunctions.route(RequestPredicates.DELETE("/friend"), postRouters::handleDeleteFriend);
+        return RouterFunctions.route(RequestPredicates.DELETE("/friend/{id}"), postRouters::handleDeleteFriend);
     }
 
     @Bean

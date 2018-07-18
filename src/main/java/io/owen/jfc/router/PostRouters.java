@@ -96,16 +96,14 @@ public class PostRouters {
         return ServerResponse.ok().build();
     }
 
-
-
     public Mono<ServerResponse> handleDeleteFriend(ServerRequest serverRequest){
         if(logger.isInfoEnabled()) {
             logger.info("Delete Friend!");
         }
 
-        serverRequest.queryParam("user_key").ifPresent(userKey -> {
-            userRepository.delete(new User(userKey));
-        });
+        String friendId = serverRequest.pathVariable("id");
+
+        userRepository.delete(new User(friendId));
 
         return ServerResponse.ok().build();
     }
