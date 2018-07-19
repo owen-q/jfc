@@ -46,9 +46,9 @@ public class MessageHandler {
         if(logger.isInfoEnabled())
             logger.info(jsonRequestBody.toString());
 
-        String userKey = jsonRequestBody.get("user_key").asText();
-        String type = jsonRequestBody.get("type").asText();
-        String content = jsonRequestBody.get("content").asText();
+        final String userKey = jsonRequestBody.get("user_key").asText();
+        final String type = jsonRequestBody.get("type").asText();
+        final String content = jsonRequestBody.get("content").asText();
 
         UserState currentUserState = stateManager.get(userKey);
         Optional<UserState> optionalNextUserState = stateList.find(content);
