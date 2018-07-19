@@ -22,4 +22,16 @@ public class ButtonsKeyboard implements Keyboard{
     public void setButtons(List<String> buttons) {
         this.buttons = buttons;
     }
+
+    public String getType() {
+        return type.getValue();
+    }
+
+    @Override
+    public String toString() {
+        return "ButtonsKeyboard{" +
+                "type=" + type.getValue() +
+                ", buttons=" + buttons +
+                '}';
+    }
 }
