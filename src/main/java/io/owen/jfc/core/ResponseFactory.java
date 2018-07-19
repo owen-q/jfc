@@ -88,7 +88,6 @@ public class ResponseFactory {
         return jsonNode;
     }
 
-
     public JsonNode createArrayNode(){
         JsonNode arrayNode = new ArrayNode(this.jsonNodeFactory);
         return arrayNode;

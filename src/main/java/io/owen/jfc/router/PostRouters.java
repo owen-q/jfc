@@ -69,7 +69,7 @@ public class PostRouters {
             logger.info(serverRequest.toString());
         }
 
-        return serverRequest.bodyToMono(JsonNode.class).map(messageHandler::handle).flatMap((result)->{
+        return serverRequest.bodyToMono(JsonNode.class).map(requestBody -> messageHandler.handle(serverRequest, requestBody)).flatMap((result)->{
             if(logger.isInfoEnabled())
                 logger.info(result.toString());
             return ServerResponse.ok().body(BodyInserters.fromObject(result));

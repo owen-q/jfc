@@ -9,8 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,7 +39,7 @@ public class MessageHandler {
         this.stateList = StateList.getInstance();
     }
 
-    public JsonNode handle(JsonNode jsonRequestBody){
+    public JsonNode handle(ServerRequest serverRequest, JsonNode jsonRequestBody){
         if(logger.isInfoEnabled())
             logger.info(jsonRequestBody.toString());
 
@@ -54,6 +57,9 @@ public class MessageHandler {
             JsonNode result = null;
             if(isAuthoredUser(userKey)){
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
+                Map<String, Object> attrs = new HashMap<>();
+
+
 
                 result = expectedCommandHandler.printOptions(userKey, null);
 

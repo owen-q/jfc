@@ -33,7 +33,7 @@ public class ApplicationRouters {
 
     @Bean
     public RouterFunction<ServerResponse> auth(){
-        return RouterFunctions.route(RequestPredicates.POST("/auth"), authRouters::auth);
+        return RouterFunctions.route(RequestPredicates.POST("/handleAuth"), authRouters::handleAuth);
     }
     @Bean
     public RouterFunction<ServerResponse> index(){

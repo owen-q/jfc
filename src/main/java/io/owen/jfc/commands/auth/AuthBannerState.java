@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.common.entity.User;
+import io.owen.jfc.common.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -16,12 +19,32 @@ import java.util.Map;
 public class AuthBannerState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(AuthBannerState.class);
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public JsonNode handle(String userKey, Map<String, Object> attrs) {
-        //Do somerthing...
-        JsonNode result = generateResponse();
+        User existUser = userRepository.findByUserKey(userKey);
 
+        // TODO: Constants
+        String enteredUserName = (String) attrs.get("userName");
+        existUser.setUserName(enteredUserName);
+        User savedUser = userRepository.save(existUser);
+
+        if(savedUser.getUserName().equals(enteredUserName)){
+            // success
+
+        }
+        else{
+
+        }
+
+
+
+        // handle auth
         return result;
+
+
     }
 
     @Override

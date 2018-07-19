@@ -24,7 +24,7 @@ public class AuthTest {
 
     @Test
     public void 인증하기(){
-        webTestClient.post().uri("/auth")
+        webTestClient.post().uri("/handleAuth")
                 .body(BodyInserters.fromObject("owen"))
                 .exchange()
                 .expectStatus().isOk();
