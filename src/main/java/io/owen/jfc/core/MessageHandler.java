@@ -40,8 +40,6 @@ public class MessageHandler {
     private StateList stateList;
 
     public MessageHandler() {
-//        this.stateManager = StateManager.getInstance();
-//        this.stateList = StateList.getInstance();
     }
 
     public Response handle(ServerRequest serverRequest, JsonNode jsonRequestBody){
@@ -73,11 +71,6 @@ public class MessageHandler {
                 // unAuthored user
                 List<String> mainCommandList = stateList.getMainCommands();
 
-                JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
-                JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(mainCommandList);
-
-//                result = responseFactory.createResult(messageNode, keyboardNode);
-
                 result = new ResponseBuilder()
                         .keyboardType(KeyboardType.BUTTONS)
                         .message("인증 후 이용해주세요")
@@ -92,22 +85,14 @@ public class MessageHandler {
             CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
             Response result = null;
 
-            /*
-            if8(expectedCommandHandler == null){
-                List<String> commands = stateList.getMainCommands();
-                result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("오류가 발생했습니다. 처음부터 다시 시도해주세요 ㅠㅠ").buttons(commands).build();
-            }
-            else{
-                result = expectedCommandHandler.handle(userKey, null);
-            }
-            */
+            result = expectedCommandHandler.handle(userKey, null);
 
             if(result == null){
                 List<String> commands = stateList.getMainCommands();
                 result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("오류가 발생했습니다. 처음부터 다시 시도해주세요 ㅠㅠ").buttons(commands).build();
-
             }
 
+//            stateManager.change(userKey, );
 
             return result;
         });

@@ -34,6 +34,8 @@ public class HomeState implements CommandHandler {
     @Override
     public Response printOptions(String userKey, Map<String, Object> attrs) {
         Response result = generateResponse();
+
+        stateManager.change(userKey, UserState.HOME);
         return result;
     }
 

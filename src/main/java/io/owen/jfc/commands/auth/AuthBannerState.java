@@ -57,6 +57,9 @@ public class AuthBannerState implements CommandHandler {
 
     @Override
     public Response printOptions(String userKey, Map<String, Object> attrs) {
+        // state change
+//        stateManager.change(userKey, UserState.AUTH_BANNER);
+
         return generateResponse();
     }
 
