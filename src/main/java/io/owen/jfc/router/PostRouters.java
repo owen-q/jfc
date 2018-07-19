@@ -34,15 +34,15 @@ public class PostRouters {
     @Autowired
     private MessageHandler messageHandler;
 
-
-
+    @Autowired
     private StateManager stateManager;
 
+    @Autowired
     private StateList stateList;
 
     public PostRouters() {
-        this.stateManager = StateManager.getInstance();
-        this.stateList = StateList.getInstance();
+//        this.stateManager = StateManager.getInstance();
+//        this.stateList = StateList.getInstance();
     }
 
     public Mono<ServerResponse> index(ServerRequest serverRequest){

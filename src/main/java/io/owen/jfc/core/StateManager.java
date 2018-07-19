@@ -3,6 +3,7 @@ package io.owen.jfc.core;
 import io.owen.jfc.commands.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by owen_q on 2018. 7. 10..
  */
+@Component
 public class StateManager {
     private Logger logger = LoggerFactory.getLogger(StateManager.class);
 
