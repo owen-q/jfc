@@ -9,6 +9,7 @@ import io.owen.jfc.common.repository.UserRepository;
 import io.owen.jfc.core.StateList;
 import io.owen.jfc.model.KeyboardType;
 import io.owen.jfc.model.Response;
+import io.owen.jfc.model.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,10 @@ public class AuthBannerState implements CommandHandler {
 
         if(savedUser.getUserName().equals(enteredUserName)){
             // success
-            response = new Response.Builder().keyboardType(KeyboardType.BUTTONS).message("인증성공").buttons(commands).build();
+            response = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("인증성공").buttons(commands).build();
         }
         else{
-            response = new Response.Builder().keyboardType(KeyboardType.TEXT).message("인증실패").buttons(commands).build();
+            response = new ResponseBuilder().keyboardType(KeyboardType.TEXT).message("인증실패").buttons(commands).build();
         }
 
         return response;
@@ -61,7 +62,7 @@ public class AuthBannerState implements CommandHandler {
         JsonNode keyboardNode = responseFactory.createTextKeyboardNode();
 
         Response response = null;
-        response = new Response.Builder().keyboardType(KeyboardType.TEXT).message("이름을 입력해주세요").build();
+        response = new ResponseBuilder().keyboardType(KeyboardType.TEXT).message("이름을 입력해주세요").build();
 
         return response;
     }

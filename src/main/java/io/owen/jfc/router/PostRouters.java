@@ -22,7 +22,6 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Component
-
 public class PostRouters {
     private Logger logger = LoggerFactory.getLogger(PostRouters.class);
 

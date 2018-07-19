@@ -7,6 +7,7 @@ import io.owen.jfc.common.entity.User;
 import io.owen.jfc.common.repository.UserRepository;
 import io.owen.jfc.model.KeyboardType;
 import io.owen.jfc.model.Response;
+import io.owen.jfc.model.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class MessageHandler {
 
 //                result = responseFactory.createResult(messageNode, keyboardNode);
 
-                result = new Response.Builder()
+                result = new ResponseBuilder()
                         .keyboardType(KeyboardType.BUTTONS)
                         .message("인증 후 이용해주세요")
                         .buttons(mainCommandList)

@@ -14,7 +14,7 @@ class ResponseTest {
     @Test
     public void 응답생성_keyboardType누락(){
         org.junit.jupiter.api.function.Executable executable = ()->{
-            Response.Builder builder = new Response.Builder();
+            ResponseBuilder builder = new ResponseBuilder();
 
             builder.build();
         };
@@ -25,7 +25,7 @@ class ResponseTest {
     @Test
     public void 응답생성_메세지누락(){
         Executable executable = () -> {
-            Response.Builder builder = new Response.Builder();
+            ResponseBuilder builder = new ResponseBuilder();
 
             builder.keyboardType(KeyboardType.TEXT)
                     .build();
@@ -37,7 +37,7 @@ class ResponseTest {
     @Test
     public void 응답생성_textKeyboard생성() {
         // Given:
-        Response.Builder builder = new Response.Builder();
+        ResponseBuilder builder = new ResponseBuilder();
         KeyboardType keyboardType = KeyboardType.TEXT;
         String message = "테스트 메세지";
 
@@ -55,7 +55,7 @@ class ResponseTest {
     @Test
     public void 응답생성_buttonKeyboard생성() {
         // Given:
-        Response.Builder builder = new Response.Builder();
+        ResponseBuilder builder = new ResponseBuilder();
         KeyboardType keyboardType = KeyboardType.BUTTONS;
         String message = "테스트 메세지";
         String[] buttons = {"d","a"};

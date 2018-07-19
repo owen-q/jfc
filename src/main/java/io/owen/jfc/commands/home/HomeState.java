@@ -6,6 +6,7 @@ import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
 import io.owen.jfc.model.KeyboardType;
 import io.owen.jfc.model.Response;
+import io.owen.jfc.model.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class HomeState implements CommandHandler {
         List<String> stateNameArr = Stream.of(availableStates).map(userState -> userState.getValue()).collect(Collectors.toList());
         JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(stateNameArr);
 
-        Response response = new Response.Builder().keyboardType(KeyboardType.BUTTONS).buttons(stateNameArr).message("메인입니다").build();
+        Response response = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).buttons(stateNameArr).message("메인입니다").build();
 
         return response;
     }
