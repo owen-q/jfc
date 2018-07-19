@@ -33,13 +33,15 @@ public class MessageHandler {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private StateManager stateManager;
 
+    @Autowired
     private StateList stateList;
 
     public MessageHandler() {
-        this.stateManager = StateManager.getInstance();
-        this.stateList = StateList.getInstance();
+//        this.stateManager = StateManager.getInstance();
+//        this.stateList = StateList.getInstance();
     }
 
     public Response handle(ServerRequest serverRequest, JsonNode jsonRequestBody){
