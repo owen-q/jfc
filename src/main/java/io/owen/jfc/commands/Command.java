@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 
 @Target(value = ElementType.TYPE)
 @Retention(value = RetentionPolicy.RUNTIME)
+@Component
 public @interface Command {
     // name
     String name() default "";
