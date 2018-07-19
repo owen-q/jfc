@@ -90,7 +90,22 @@ public class MessageHandler {
             CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
             Response result = null;
 
-            result = expectedCommandHandler.handle(userKey, null);
+            /*
+            if8(expectedCommandHandler == null){
+                List<String> commands = stateList.getMainCommands();
+                result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("오류가 발생했습니다. 처음부터 다시 시도해주세요 ㅠㅠ").buttons(commands).build();
+            }
+            else{
+                result = expectedCommandHandler.handle(userKey, null);
+            }
+            */
+
+            if(result == null){
+                List<String> commands = stateList.getMainCommands();
+                result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("오류가 발생했습니다. 처음부터 다시 시도해주세요 ㅠㅠ").buttons(commands).build();
+
+            }
+
 
             return result;
         });
