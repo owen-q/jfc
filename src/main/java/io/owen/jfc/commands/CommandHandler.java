@@ -1,8 +1,8 @@
 package io.owen.jfc.commands;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.core.ResponseFactory;
 import io.owen.jfc.core.StateManager;
+import io.owen.jfc.model.Response;
 
 import java.util.Map;
 
@@ -13,11 +13,7 @@ public interface CommandHandler {
     StateManager stateManager = StateManager.getInstance();
     ResponseFactory responseFactory = ResponseFactory.getInstance();
 
-//    boolean isValidAction(UserState nextUserState);
-
-
-
-    JsonNode handle(String userKey, Map<String, Object> attrs);
+    Response handle(String userKey, Map<String, Object> attrs);
 
     /**
      * User Content가 command일때, 해당 command의 옵션들을 보여준다
@@ -25,8 +21,8 @@ public interface CommandHandler {
      * @param attrs
      * @return
      */
-    JsonNode printOptions(String userKey, Map<String, Object> attrs);
-    JsonNode generateResponse();
+    Response printOptions(String userKey, Map<String, Object> attrs);
+    Response generateResponse();
 
     default boolean isValidAction(UserState nextUserState){
         System.out.println(this.getClass().getName());
@@ -35,5 +31,11 @@ public interface CommandHandler {
 
     default void changeState(String userKey, UserState newUserState){
         stateManager.change(userKey, newUserState);
+    }
+
+    static String a = "";
+
+    static void asdf(){
+
     }
 }

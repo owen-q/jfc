@@ -5,6 +5,8 @@ import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
 import io.owen.jfc.common.entity.User;
 import io.owen.jfc.common.repository.UserRepository;
+import io.owen.jfc.model.KeyboardType;
+import io.owen.jfc.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ public class MessageHandler {
         this.stateList = StateList.getInstance();
     }
 
-    public JsonNode handle(ServerRequest serverRequest, JsonNode jsonRequestBody){
+    public Response handle(ServerRequest serverRequest, JsonNode jsonRequestBody){
         if(logger.isInfoEnabled())
             logger.info(jsonRequestBody.toString());
 
@@ -50,16 +52,15 @@ public class MessageHandler {
         UserState currentUserState = stateManager.get(userKey);
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
-        JsonNode handleResult = null;
+        Response response = null;
 
         // change user input 'content' to next command
-        handleResult = optionalNextUserState.map(nextUserState -> {
-            JsonNode result = null;
+        response = optionalNextUserState.map(nextUserState -> {
+            Response result = null;
+
             if(isAuthoredUser(userKey)){
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
                 Map<String, Object> attrs = new HashMap<>();
-
-
 
                 result = expectedCommandHandler.printOptions(userKey, null);
 
@@ -73,22 +74,27 @@ public class MessageHandler {
                 JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
                 JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(mainCommandList);
 
-                result = responseFactory.createResult(messageNode, keyboardNode);
+//                result = responseFactory.createResult(messageNode, keyboardNode);
+
+                result = new Response.Builder()
+                        .keyboardType(KeyboardType.BUTTONS)
+                        .message("인증 후 이용해주세요")
+                        .buttons(mainCommandList)
+                        .build();
             }
 
             return result;
         }).orElseGet(()->{
             // content is user input
             CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-            JsonNode result = null;
+            Response result = null;
 
             result = expectedCommandHandler.handle(userKey, null);
 
             return result;
         });
 
-
-        return handleResult;
+        return response;
     }
 
     private boolean isAuthoredUser(String userKey){

@@ -57,7 +57,6 @@ public class StateList {
                 else
                     return 1;
             });
-
         }
         catch (Exception e){
             e.printStackTrace();

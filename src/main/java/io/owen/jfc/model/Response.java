@@ -1,5 +1,8 @@
 package io.owen.jfc.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by owen_q on 2018. 7. 19..
  */
@@ -25,7 +28,7 @@ public class Response {
         // Text keyboard
         // None
         // Buttons Keyboard
-        private String[] buttons = null;
+        private List<String> buttons = null;
 
         public Builder keyboardType(KeyboardType keyboardType){
             this.keyboardType = keyboardType;
@@ -37,9 +40,13 @@ public class Response {
             return this;
         }
 
-        public Builder buttons(String[] buttons){
+        public Builder buttons(List<String> buttons){
             this.buttons = buttons;
             return this;
+        }
+
+        public Builder buttons(String[] buttons){
+            return buttons(Arrays.asList(buttons));
         }
 
         public Response build(){
@@ -49,7 +56,7 @@ public class Response {
             if(messageText.equals(""))
                 throw new IllegalArgumentException();
 
-            if(keyboardType == KeyboardType.BUTTONS && buttons == null)
+            if(keyboardType == KeyboardType.BUTTONS && buttons == null && buttons.size() == 0)
                 throw new IllegalArgumentException();
 
             // Build message

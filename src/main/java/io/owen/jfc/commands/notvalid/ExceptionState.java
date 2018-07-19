@@ -1,8 +1,8 @@
 package io.owen.jfc.commands.notvalid;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,19 +21,19 @@ public class ExceptionState implements CommandHandler {
     }
 
     @Override
-    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
+    public Response printOptions(String userKey, Map<String, Object> attrs) {
 
 
         return null;
     }
 
     @Override
-    public JsonNode handle(String userKey, Map<String, Object> attrs) {
+    public Response handle(String userKey, Map<String, Object> attrs) {
         return null;
     }
 
     @Override
-    public JsonNode generateResponse() {
+    public Response generateResponse() {
         return null;
     }
 }

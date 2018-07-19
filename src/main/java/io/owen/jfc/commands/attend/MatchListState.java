@@ -1,9 +1,9 @@
 package io.owen.jfc.commands.attend;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +17,13 @@ public class MatchListState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(MatchListState.class);
 
     @Override
-    public JsonNode handle(String userKey, Map<String, Object> attrs) {
+    public Response handle(String userKey, Map<String, Object> attrs) {
 
         return null;
     }
 
     @Override
-    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
+    public Response printOptions(String userKey, Map<String, Object> attrs) {
         /*
         Command command = this.getClass().getDeclaredAnnotation(Command.class);
 
@@ -37,13 +37,13 @@ public class MatchListState implements CommandHandler {
         JsonNode result = responseFactory.createResult(messageNode, keyboardNode);
         */
 
-        JsonNode result = null;
+        Response result = null;
 
         return result;
     }
 
     @Override
-    public JsonNode generateResponse() {
+    public Response generateResponse() {
         return null;
     }
 }

@@ -1,5 +1,8 @@
 package io.owen.jfc.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by owen_q on 2018. 7. 10..
  */
@@ -35,4 +38,13 @@ public enum UserState {
                 "value='" + value + '\'' +
                 '}';
     }
+
+    private static List<UserState> userStateList = new ArrayList<>();
+
+    public static List<UserState> getUserStateList(){
+        return userStateList;
+    }
+
+
+
 }

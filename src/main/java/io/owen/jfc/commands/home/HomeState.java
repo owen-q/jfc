@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.model.KeyboardType;
+import io.owen.jfc.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,20 +22,20 @@ public class HomeState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(HomeState.class);
 
     @Override
-    public JsonNode handle(String userKey, Map<String, Object> attrs) {
+    public Response handle(String userKey, Map<String, Object> attrs) {
         generateResponse();
 
         return null;
     }
 
     @Override
-    public JsonNode printOptions(String userKey, Map<String, Object> attrs) {
-        JsonNode result = generateResponse();
+    public Response printOptions(String userKey, Map<String, Object> attrs) {
+        Response result = generateResponse();
         return result;
     }
 
     @Override
-    public JsonNode generateResponse() {
+    public Response generateResponse() {
         Command command = this.getClass().getDeclaredAnnotation(Command.class);
 
         UserState[] availableStates = command.availableNextState();
@@ -43,9 +45,9 @@ public class HomeState implements CommandHandler {
         List<String> stateNameArr = Stream.of(availableStates).map(userState -> userState.getValue()).collect(Collectors.toList());
         JsonNode keyboardNode = responseFactory.createButtonsKeyboardNode(stateNameArr);
 
-        JsonNode result = responseFactory.createResult(messageNode, keyboardNode);
+        Response response = new Response.Builder().keyboardType(KeyboardType.BUTTONS).buttons(stateNameArr).message("메인입니다").build();
 
-        return result;
+        return response;
     }
 }
 
