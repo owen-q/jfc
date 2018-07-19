@@ -9,6 +9,7 @@ import io.owen.jfc.model.Response;
 import io.owen.jfc.model.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 /**
  * Created by owen_q on 2018. 7. 16..
  */
+@Component
 @Command(state = UserState.HOME, availableNextState = {UserState.AUTH_BANNER, UserState.MATCH_LIST, UserState.HOME})
 public class HomeState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(HomeState.class);
