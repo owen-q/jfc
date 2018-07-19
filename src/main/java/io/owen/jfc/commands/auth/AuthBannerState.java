@@ -13,6 +13,7 @@ import io.owen.jfc.model.ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Map;
 /**
  * Created by owen_q on 2018. 7. 15..
  */
+@Component
 @Command(state = UserState.AUTH_BANNER, availableNextState = {UserState.AUTH_INPUT, UserState.HOME})
 public class AuthBannerState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(AuthBannerState.class);

@@ -86,6 +86,7 @@ public class MessageHandler {
             return result;
         }).orElseGet(()->{
             // content is user input
+            // TODO: exceptional case 처리->Home 이동
             CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
             Response result = null;
 

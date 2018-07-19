@@ -6,24 +6,49 @@ import io.owen.jfc.commands.UserState;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Created by owen_q on 2018. 7. 11..
  */
+@Component
 public class StateList {
     private Logger logger = LoggerFactory.getLogger(StateList.class);
 
     private Map<String, CommandHandler> commandHandlerMap;
     private List<UserState> availableStateSet;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     public static StateList getInstance() {
         return Holder.INSTANCE;
     }
 
     private StateList() {
+
+    }
+
+    public Optional<UserState> find(String userEnteredContent){
+        return availableStateSet.stream().filter(actualUserState -> actualUserState.getValue().equals(userEnteredContent)).findAny();
+    }
+
+    public List<String> getMainCommands(){
+        return availableStateSet.stream().filter(actualUserState -> actualUserState.getId() < 10 ).map(mainCommandState -> mainCommandState.getValue()).collect(Collectors.toList());
+    }
+
+    public CommandHandler getCommandHandler(String stateName){
+        return this.commandHandlerMap.get(stateName);
+    }
+
+    @PostConstruct
+    public void afterInit(){
         commandHandlerMap = new HashMap<>();
         this.availableStateSet = new ArrayList<>();
 
@@ -43,7 +68,9 @@ public class StateList {
                 currentState = commandAnnotation.state();
                 commandName = currentState.getValue();
 
-                handler = (CommandHandler) commandClass.getConstructor().newInstance();
+
+                handler = (CommandHandler) applicationContext.getBean(commandClass);
+//                handler = (CommandHandler) commandClass.getConstructor().newInstance();
 
                 commandHandlerMap.put(commandName, handler);
                 availableStateSet.add(currentState);
@@ -62,19 +89,7 @@ public class StateList {
             e.printStackTrace();
         }
 
-        System.out.println("break");
-    }
 
-    public Optional<UserState> find(String userEnteredContent){
-        return availableStateSet.stream().filter(actualUserState -> actualUserState.getValue().equals(userEnteredContent)).findAny();
-    }
-
-    public List<String> getMainCommands(){
-        return availableStateSet.stream().filter(actualUserState -> actualUserState.getId() < 10 ).map(mainCommandState -> mainCommandState.getValue()).collect(Collectors.toList());
-    }
-
-    public CommandHandler getCommandHandler(String stateName){
-        return this.commandHandlerMap.get(stateName);
     }
 
     private static class Holder{
