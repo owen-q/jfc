@@ -92,7 +92,7 @@ public class Wakeup {
 
     private void healing(){
         // Send GET /heal
-        webClient = WebClient.create("/heal");
+        webClient = WebClient.create("https://infinite-anchorage-70454.herokuapp.com/heal");
 
         Mono<ClientResponse> clientResponseMono = webClient.get().exchange();
         clientResponseMono.subscribe(clientResponse -> {
