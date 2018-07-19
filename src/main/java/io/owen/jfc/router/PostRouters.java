@@ -50,9 +50,6 @@ public class PostRouters {
     }
 
     public Mono<ServerResponse> handleKeyboards(ServerRequest serverRequest){
-//        if(logger.isInfoEnabled())
-//            logger.info(serverRequest.toString());
-
         JsonNode jsonNode = responseFactory.createObjectNode("type", "buttons");
         JsonNode arrayNode = responseFactory.createArrayNode();
         List<String> mainCommands = stateList.getMainCommands();
@@ -73,7 +70,7 @@ public class PostRouters {
             if(logger.isInfoEnabled())
                 logger.info(result.toString());
 
-            return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(result));
+            return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(result)).log();
         });
     }
 
