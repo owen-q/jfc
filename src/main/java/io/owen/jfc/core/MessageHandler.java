@@ -50,6 +50,8 @@ public class MessageHandler {
         final String type = jsonRequestBody.get("type").asText();
         final String content = jsonRequestBody.get("content").asText();
 
+
+
         UserState currentUserState = stateManager.get(userKey);
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
@@ -82,17 +84,16 @@ public class MessageHandler {
         }).orElseGet(()->{
             // content is user input
             // TODO: exceptional case 처리->Home 이동
-            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-            Response result = null;
+            Map<String, Object> attrs = new HashMap<>();
+            attrs.put("content", content);
 
-            result = expectedCommandHandler.handle(userKey, null);
+            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
+            Response result = expectedCommandHandler.handle(userKey, attrs);
 
             if(result == null){
                 List<String> commands = stateList.getMainCommands();
                 result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).message("오류가 발생했습니다. 처음부터 다시 시도해주세요 ㅠㅠ").buttons(commands).build();
             }
-
-//            stateManager.change(userKey, );
 
             return result;
         });

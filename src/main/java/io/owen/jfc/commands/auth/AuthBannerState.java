@@ -35,7 +35,7 @@ public class AuthBannerState implements CommandHandler {
         User existUser = userRepository.findByUserKey(userKey);
 
         // TODO: Constants
-        String enteredUserName = (String) attrs.get("userName");
+        String enteredUserName = (String) attrs.get("content");
         existUser.setUserName(enteredUserName);
         existUser.setAuthored(true);
 
