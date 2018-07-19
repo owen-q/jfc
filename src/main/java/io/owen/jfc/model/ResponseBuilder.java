@@ -53,11 +53,13 @@ public class ResponseBuilder {
 
         // Build message
         Message message = new Message();
+        message.setText(messageText);
 
         // Build keyboard
         Keyboard keyboard = null;
         if(keyboardType == KeyboardType.BUTTONS){
             keyboard = new ButtonsKeyboard();
+            ((ButtonsKeyboard) keyboard).setButtons(buttons);
         }
         else if(keyboardType == KeyboardType.TEXT){
             keyboard = new TextKeyboard();
