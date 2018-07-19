@@ -11,6 +11,7 @@ import io.owen.jfc.core.StateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -72,7 +73,8 @@ public class PostRouters {
         return serverRequest.bodyToMono(JsonNode.class).map(requestBody -> messageHandler.handle(serverRequest, requestBody)).flatMap((result)->{
             if(logger.isInfoEnabled())
                 logger.info(result.toString());
-            return ServerResponse.ok().body(BodyInserters.fromObject(result));
+
+            return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(result));
         });
     }
 
@@ -89,6 +91,7 @@ public class PostRouters {
             if(!userKey.equals("")){
                 if(logger.isInfoEnabled())
                     logger.info("Store user {}", userKey);
+
                 // Save user_key to User.class
                 userRepository.save(new User(userKey));
             }

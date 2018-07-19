@@ -1,12 +1,16 @@
 package io.owen.jfc.model;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by owen_q on 2018. 7. 19..
  */
-public class Response {
+@Data
+public class Response implements Serializable {
     private Message message;
     private Keyboard keyboard;
 
