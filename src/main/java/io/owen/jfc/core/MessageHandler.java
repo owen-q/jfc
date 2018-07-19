@@ -59,7 +59,7 @@ public class MessageHandler {
         response = optionalNextUserState.map(nextUserState -> {
             Response result = null;
 
-            if(isAuthoredUser(userKey)){
+            if(isAuthoredUser(userKey) || nextUserState == UserState.AUTH_BANNER){
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
                 Map<String, Object> attrs = new HashMap<>();
 
@@ -69,7 +69,6 @@ public class MessageHandler {
             }
             else{
                 // unAuthored user
-
                 List<String> mainCommandList = stateList.getMainCommands();
 
                 JsonNode messageNode = responseFactory.createMessageNode("인증 후 이용해주세요", null);
