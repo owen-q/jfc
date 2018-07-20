@@ -29,6 +29,9 @@ public class AuthBannerState implements CommandHandler {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private StateList stateList;
+
     @Override
     public Response handle(String userKey, Map<String, Object> attrs) {
         Response response = null;
@@ -42,7 +45,7 @@ public class AuthBannerState implements CommandHandler {
         User savedUser = userRepository.save(existUser);
         List<String> commands = null;
 
-        commands = StateList.getInstance().getMainCommands();
+        commands = stateList.getMainCommands();
 
         if(savedUser.getUserName().equals(enteredUserName)){
             // success
