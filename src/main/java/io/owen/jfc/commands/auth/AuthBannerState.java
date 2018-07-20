@@ -32,7 +32,7 @@ public class AuthBannerState implements CommandHandler {
     @Override
     public Response handle(String userKey, Map<String, Object> attrs) {
         Response response = null;
-        User existUser = userRepository.getOne(userKey);
+        User existUser = userRepository.findByUserKey(userKey);
 
         // TODO: Constants
         String enteredUserName = (String) attrs.get("content");
