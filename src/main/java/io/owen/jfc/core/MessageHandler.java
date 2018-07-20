@@ -84,11 +84,17 @@ public class MessageHandler {
         }).orElseGet(()->{
             // content is user input
             // TODO: exceptional case 처리->Home 이동
-            Map<String, Object> attrs = new HashMap<>();
-            attrs.put("content", content);
+            Response result = null;
+            try{
+                Map<String, Object> attrs = new HashMap<>();
+                attrs.put("content", content);
 
-            CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-            Response result = expectedCommandHandler.handle(userKey, attrs);
+                CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
+                result = expectedCommandHandler.handle(userKey, attrs);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
 
             if(result == null){
                 List<String> commands = stateList.getMainCommands();
