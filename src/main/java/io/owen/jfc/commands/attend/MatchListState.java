@@ -52,7 +52,7 @@ public class MatchListState implements CommandHandler {
     @Override
     public Response handle(String userKey, Map<String, Object> attrs) {
         String content = (String) attrs.get("content");
-        String matchDate = content.split(" ")[2];
+        String matchDate = content.split(" ")[1];
 
         LocalDate localMathDate = LocalDate.parse(matchDate);
 

@@ -11,4 +11,11 @@ import lombok.Setter;
 @Setter
 public class TextKeyboard implements Keyboard{
     private KeyboardType type = KeyboardType.TEXT;
+
+    @Override
+    public String toString() {
+        return "TextKeyboard{" +
+                "type=" + type +
+                '}';
+    }
 }

@@ -19,12 +19,16 @@ public class Response implements Serializable {
 
     private Keyboard keyboard;
 
-
-
     Response(Message message, Keyboard keyboard) {
         this.message = message;
         this.keyboard = keyboard;
     }
 
-
+    @Override
+    public String toString() {
+        return "Response{" +
+                "message=" + message +
+                ", keyboard=" + keyboard +
+                '}';
+    }
 }
