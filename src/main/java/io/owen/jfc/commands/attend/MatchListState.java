@@ -48,7 +48,7 @@ public class MatchListState implements CommandHandler {
         String userName = user.getUserName();
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-        List<Match> availableMatchList = matchRepository.findByMatchDateAfter(now);
+        List<Match> availableMatchList = matchRepository.findByMatchDateAfter(now.toLocalDate());
         StringBuilder responseMessageBuilder = new StringBuilder();
         List<String> commands = new ArrayList<>();
 
