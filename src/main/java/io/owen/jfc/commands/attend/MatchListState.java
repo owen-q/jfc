@@ -52,14 +52,16 @@ public class MatchListState implements CommandHandler {
         StringBuilder responseMessageBuilder = new StringBuilder();
         List<String> commands = new ArrayList<>();
 
+        String menuItem = "%s\n참석:%d, 불참:%d";
+
         availableMatchList.stream().forEach(match->{
-            commands.add(match.getMatchDate().format(DateTimeFormatter.ISO_DATE));
+            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), match.getAttendList().size(), match.getNonAttendList().size()) );
         });
 
-        commands.add("홈");
+        commands.add(UserState.HOME.getValue());
 
-        responseMessageBuilder.append("안녕하세요 " + userName);
-        responseMessageBuilder.append("현재 계획중인 경기는 총 " + availableMatchList.size() + "개 입니다.");
+        responseMessageBuilder.append("안녕하세요 " + userName + "\n");
+        responseMessageBuilder.append("현재 참석 가능한 경기는 총 " + availableMatchList.size() + "개 입니다.\n");
         responseMessageBuilder.append("-----------------------------------------");
 
         Response result = new ResponseBuilder().keyboardType(KeyboardType.BUTTONS).buttons(commands).message(responseMessageBuilder.toString()).build();
