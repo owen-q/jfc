@@ -52,7 +52,7 @@ public class MatchListState implements CommandHandler {
     @Override
     public Response handle(String userKey, Map<String, Object> attrs) {
         String content = (String) attrs.get("content");
-        String matchDate = content.split("\n")[0].split("> ")[1];
+        String matchDate = content.split(" ")[2];
 
         LocalDate localMathDate = LocalDate.parse(matchDate);
 
@@ -116,7 +116,7 @@ public class MatchListState implements CommandHandler {
         StringBuilder responseMessageBuilder = new StringBuilder();
         List<String> commands = new ArrayList<>();
 
-        String menuItem = "> %s(%s) 참석:%d, 불참:%d";
+        String menuItem = "> %s (%s) 참석:%d, 불참:%d";
 
         availableMatchList.stream().forEach(match->{
             commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), match.getAttendList().size(), match.getNonAttendList().size()) );
