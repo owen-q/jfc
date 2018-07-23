@@ -32,23 +32,6 @@ public class StateList {
     }
 
     private StateList() {
-
-    }
-
-    public Optional<UserState> find(String userEnteredContent){
-        return availableStateSet.stream().filter(actualUserState -> actualUserState.getValue().equals(userEnteredContent)).findAny();
-    }
-
-    public List<String> getMainCommands(){
-        return availableStateSet.stream().filter(actualUserState -> actualUserState.getId() < 10 ).map(mainCommandState -> mainCommandState.getValue()).collect(Collectors.toList());
-    }
-
-    public CommandHandler getCommandHandler(String stateName){
-        return this.commandHandlerMap.get(stateName);
-    }
-
-    @PostConstruct
-    public void afterInit(){
         commandHandlerMap = new HashMap<>();
         this.availableStateSet = new ArrayList<>();
 
@@ -87,6 +70,23 @@ public class StateList {
         catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    public Optional<UserState> find(String userEnteredContent){
+        return availableStateSet.stream().filter(actualUserState -> actualUserState.getValue().equals(userEnteredContent)).findAny();
+    }
+
+    public List<String> getMainCommands(){
+        return availableStateSet.stream().filter(actualUserState -> actualUserState.getId() < 10 ).map(mainCommandState -> mainCommandState.getValue()).collect(Collectors.toList());
+    }
+
+    public CommandHandler getCommandHandler(String stateName){
+        return this.commandHandlerMap.get(stateName);
+    }
+
+    @PostConstruct
+    public void afterInit(){
 
 
     }
