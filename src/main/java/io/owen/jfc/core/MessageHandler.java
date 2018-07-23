@@ -67,7 +67,7 @@ public class MessageHandler {
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(nextUserState.getValue());
                 Map<String, Object> attrs = new HashMap<>();
 
-                result = expectedCommandHandler.printOptions(userKey, null);
+                result = expectedCommandHandler.handleCommand(userKey, null);
 
                 stateManager.change(userKey, nextUserState);
             }
@@ -92,7 +92,7 @@ public class MessageHandler {
                 attrs.put("content", content);
 
                 CommandHandler expectedCommandHandler = stateList.getCommandHandler(currentUserState.getValue());
-                result = expectedCommandHandler.handle(userKey, attrs);
+                result = expectedCommandHandler.handleInput(userKey, attrs);
             }
             catch (Exception e){
                 e.printStackTrace();

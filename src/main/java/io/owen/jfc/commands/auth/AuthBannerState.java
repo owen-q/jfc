@@ -33,7 +33,7 @@ public class AuthBannerState implements CommandHandler {
     private StateList stateList;
 
     @Override
-    public Response handle(String userKey, Map<String, Object> attrs) {
+    public Response handleInput(String userKey, Map<String, Object> attrs) {
         Response response = null;
         User existUser = userRepository.findByUserKey(userKey);
 
@@ -59,7 +59,7 @@ public class AuthBannerState implements CommandHandler {
     }
 
     @Override
-    public Response printOptions(String userKey, Map<String, Object> attrs) {
+    public Response handleCommand(String userKey, Map<String, Object> attrs) {
         // state change
 //        stateManager.change(userKey, UserState.AUTH_BANNER);
 

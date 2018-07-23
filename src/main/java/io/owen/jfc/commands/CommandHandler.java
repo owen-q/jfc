@@ -17,7 +17,7 @@ public interface CommandHandler {
 
 
 
-    Response handle(String userKey, Map<String, Object> attrs);
+    Response handleInput(String userKey, Map<String, Object> attrs);
 
     /**
      * User Content가 command일때, 해당 command의 옵션들을 보여준다
@@ -25,7 +25,7 @@ public interface CommandHandler {
      * @param attrs
      * @return
      */
-    Response printOptions(String userKey, Map<String, Object> attrs);
+    Response handleCommand(String userKey, Map<String, Object> attrs);
     Response generateResponse();
 
     default boolean isValidAction(UserState nextUserState){

@@ -50,7 +50,7 @@ public class MatchListState implements CommandHandler {
     }
 
     @Override
-    public Response handle(String userKey, Map<String, Object> attrs) {
+    public Response handleInput(String userKey, Map<String, Object> attrs) {
         String content = (String) attrs.get("content");
         String matchDate = content.split(" ")[1];
 
@@ -107,7 +107,7 @@ public class MatchListState implements CommandHandler {
     }
 
     @Override
-    public Response printOptions(String userKey, Map<String, Object> attrs) {
+    public Response handleCommand(String userKey, Map<String, Object> attrs) {
         User user = userRepository.findByUserKey(userKey);
         String userName = user.getUserName();
 

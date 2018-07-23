@@ -43,7 +43,7 @@ public class StateRouter {
 
         // check illegal
 
-        // call next state handle
+        // call next state handleInput
 
         // return result
 

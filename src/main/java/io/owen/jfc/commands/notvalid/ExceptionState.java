@@ -21,14 +21,14 @@ public class ExceptionState implements CommandHandler {
     }
 
     @Override
-    public Response printOptions(String userKey, Map<String, Object> attrs) {
+    public Response handleCommand(String userKey, Map<String, Object> attrs) {
 
 
         return null;
     }
 
     @Override
-    public Response handle(String userKey, Map<String, Object> attrs) {
+    public Response handleInput(String userKey, Map<String, Object> attrs) {
         return null;
     }
 
