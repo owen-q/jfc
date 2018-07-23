@@ -57,7 +57,6 @@ public class MessageHandler {
 
         Response response = null;
 
-
         response = optionalNextUserState.map(nextUserState -> {
 
             // content is {@link UserState}

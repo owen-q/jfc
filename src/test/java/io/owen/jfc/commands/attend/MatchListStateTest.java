@@ -56,4 +56,28 @@ class MatchListStateTest {
 
     }
 
+    @Test
+    public void 참석시도() {
+        // Given:
+        String userKey = "aEHJMiBKYLCV";
+        String type = "text";
+        String content = "참석";
+
+        JsonNodeFactory jsonNodeFactory = new JsonNodeFactory(false);
+        JsonNode body = new ObjectNode(jsonNodeFactory);
+
+        ((ObjectNode) body).put("user_key", userKey);
+        ((ObjectNode) body).put("type", type);
+        ((ObjectNode) body).put("content", content);
+
+        // When:
+        Flux<String> response = webTestClient.post().uri("/message").body(BodyInserters.fromObject(body))
+                .exchange()
+                .expectStatus().isOk()
+                .returnResult(String.class).getResponseBody();
+
+        // Then:
+
+    }
+
 }

@@ -68,7 +68,6 @@ public class StateList {
                 currentState = commandAnnotation.state();
                 commandName = currentState.getValue();
 
-
                 handler = (CommandHandler) applicationContext.getBean(commandClass);
 //                handler = (CommandHandler) commandClass.getConstructor().newInstance();
 

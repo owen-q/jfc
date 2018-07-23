@@ -44,7 +44,4 @@ public enum UserState {
     public static List<UserState> getUserStateList(){
         return userStateList;
     }
-
-
-
 }
