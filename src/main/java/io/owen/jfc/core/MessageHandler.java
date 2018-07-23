@@ -50,15 +50,17 @@ public class MessageHandler {
         final String type = jsonRequestBody.get("type").asText();
         final String content = jsonRequestBody.get("content").asText();
 
-
-
         UserState currentUserState = stateManager.get(userKey);
+
+        // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
 
         Response response = null;
 
-        // change user input 'content' to next command
+
         response = optionalNextUserState.map(nextUserState -> {
+
+            // content is {@link UserState}
             Response result = null;
 
             if(isAuthoredUser(userKey) || nextUserState == UserState.AUTH_BANNER){

@@ -4,6 +4,8 @@ import io.owen.jfc.core.ResponseFactory;
 import io.owen.jfc.core.StateManager;
 import io.owen.jfc.model.Response;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +14,8 @@ import java.util.Map;
 public interface CommandHandler {
     StateManager stateManager = StateManager.getInstance();
     ResponseFactory responseFactory = ResponseFactory.getInstance();
+
+
 
     Response handle(String userKey, Map<String, Object> attrs);
 
@@ -29,11 +33,17 @@ public interface CommandHandler {
         return true;
     }
 
+    default List<UserState> getNextStates(){
+        Command command = this.getClass().getDeclaredAnnotation(Command.class);
+
+        return Arrays.asList(command.availableNextState());
+    }
+
     default void changeState(String userKey, UserState newUserState){
         stateManager.change(userKey, newUserState);
     }
 
-    static String a = "";
+    String a = "";
 
     static void asdf(){
 

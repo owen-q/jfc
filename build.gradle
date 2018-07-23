@@ -36,7 +36,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-aop')
+
 	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 
 	// Persistence
 	// mysql
