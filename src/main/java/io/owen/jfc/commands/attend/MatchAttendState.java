@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 @Component
-@Command(state = UserState.MATCH_ATTEND, availableNextState = {UserState.HOME})
+@Command(state = UserState.MATCH_ATTEND, availableNextState = {UserState.HOME, UserState.AUTH_BANNER})
 public class MatchAttendState implements CommandHandler {
     private Logger logger = LoggerFactory.getLogger(MatchAttendState.class);
 
