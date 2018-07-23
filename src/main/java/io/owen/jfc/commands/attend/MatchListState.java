@@ -11,6 +11,7 @@ import io.owen.jfc.model.KeyboardType;
 import io.owen.jfc.model.Response;
 import io.owen.jfc.model.ResponseBuilder;
 import io.owen.jfc.util.Cache;
+import io.owen.jfc.util.WeekConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,10 +116,10 @@ public class MatchListState implements CommandHandler {
         StringBuilder responseMessageBuilder = new StringBuilder();
         List<String> commands = new ArrayList<>();
 
-        String menuItem = "> %s\n참석:%d, 불참:%d";
+        String menuItem = "> %s(%s) 참석:%d, 불참:%d";
 
         availableMatchList.stream().forEach(match->{
-            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), match.getAttendList().size(), match.getNonAttendList().size()) );
+            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), match.getAttendList().size(), match.getNonAttendList().size()) );
         });
 
         commands.add(UserState.HOME.getValue());
