@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -85,11 +84,10 @@ public class StateList {
         return this.commandHandlerMap.get(stateName);
     }
 
-    @PostConstruct
-    public void afterInit(){
-
-
-    }
+//    @PostConstruct
+//    public void afterInit(){
+//
+//    }
 
     private static class Holder{
         private static StateList INSTANCE = new StateList();
