@@ -14,10 +14,13 @@ public enum WeekConverter {
         switch(dayOfWeek){
             case SUNDAY:
                 strDay = "일";
+                break;
             case MONDAY:
                 strDay = "월";
+                break;
             case SATURDAY:
                 strDay = "토";
+                break;
         }
 
         return strDay;
