@@ -61,6 +61,7 @@ public class MessageHandler {
         Response response = null;
 
         response = optionalNextUserState.map(nextUserState -> {
+            logger.info("In nextUserState map");
 
             // content is {@link UserState}
             Response result = null;
@@ -86,6 +87,7 @@ public class MessageHandler {
 
             return result;
         }).orElseGet(()->{
+            logger.info("In nextUserState elseGet");
             // content is user input
             // TODO: exceptional case 처리->Home 이동
             Response result = null;
