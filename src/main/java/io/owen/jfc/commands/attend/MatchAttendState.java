@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Optional;
@@ -54,11 +55,14 @@ public class MatchAttendState implements CommandHandler {
         if(logger.isInfoEnabled())
             logger.info("{} handle", UserState.MATCH_ATTEND.getValue());
 
-        Optional<Match> maybeMatch = (Optional) cache.get(userKey);
+        LocalDate matchDate = (LocalDate) cache.get(userKey);
+        Optional<Match> maybeMatch = matchRepository.findById(matchDate);
         Response response = null;
 
         response = maybeMatch
                 .map((match)->{
+
+
                     User attendUser = userRepository.findByUserKey(userKey);
 
                     match.getAttendList().add(attendUser);

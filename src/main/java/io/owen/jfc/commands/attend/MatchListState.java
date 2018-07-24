@@ -59,7 +59,8 @@ public class MatchListState implements CommandHandler {
         Optional<Match> maybeTargetMatchInfo = matchRepository.findById(localMathDate);
 
         // Store match
-        cache.set(userKey, maybeTargetMatchInfo);
+
+        cache.set(userKey, localMathDate);
 
         StringBuilder resultMessageBuilder = new StringBuilder();
         resultMessageBuilder.append("> "  + matchDate + "\n");
