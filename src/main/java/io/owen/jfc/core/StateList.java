@@ -27,10 +27,6 @@ public class StateList {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public static StateList getInstance() {
-        return Holder.INSTANCE;
-    }
-
     private StateList() {
 
     }
@@ -89,7 +85,12 @@ public class StateList {
         }
     }
 
-    private static class Holder{
-        private static StateList INSTANCE = new StateList();
+    public List<UserState> getAvailableStateSet() {
+        return availableStateSet;
+    }
+
+    @Override
+    public String toString() {
+        return availableStateSet.toString();
     }
 }
