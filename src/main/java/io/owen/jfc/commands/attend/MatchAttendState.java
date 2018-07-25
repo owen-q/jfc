@@ -61,13 +61,11 @@ public class MatchAttendState implements CommandHandler {
 
         response = maybeMatch
                 .map((match)->{
-
-
                     User attendUser = userRepository.findByUserKey(userKey);
 
                     match.getAttendList().add(attendUser);
 
-                    Match savedMatch = matchRepository.save(match);
+                    Match savedMatch = matchRepository.saveAndFlush(match);
 
                     /*
                     // TODO
