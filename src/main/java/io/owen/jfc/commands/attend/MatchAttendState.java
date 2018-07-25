@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -50,6 +51,7 @@ public class MatchAttendState implements CommandHandler {
         return null;
     }
 
+    @Transactional
     @Override
     public Response handleCommand(String userKey, Map<String, Object> attrs) {
         if(logger.isInfoEnabled())
@@ -65,7 +67,9 @@ public class MatchAttendState implements CommandHandler {
 
                     match.getAttendList().add(attendUser);
 
-                    Match savedMatch = matchRepository.saveAndFlush(match);
+                    Match savedMatch = matchRepository.save(match);
+
+                    matchRepository.flush();
 
                     /*
                     // TODO
