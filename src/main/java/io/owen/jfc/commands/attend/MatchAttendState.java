@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,14 +59,18 @@ public class MatchAttendState implements CommandHandler {
             logger.info("{} handle", UserState.MATCH_ATTEND.getValue());
 
         LocalDate matchDate = (LocalDate) cache.get(userKey);
+        User attendUser = userRepository.findByUserKey(userKey);
+
         Optional<Match> maybeMatch = matchRepository.findById(matchDate);
         Response response = null;
 
         response = maybeMatch
                 .map((match)->{
-                    User attendUser = userRepository.findByUserKey(userKey);
+                    List<User> attendList = match.getAttendList();
 
-                    match.getAttendList().add(attendUser);
+                    attendList.add(attendUser);
+
+                    match.setAttendList(attendList);
 
                     Match savedMatch = matchRepository.save(match);
 

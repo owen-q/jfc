@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class AuthBannerState implements CommandHandler {
     @Autowired
     private StateList stateList;
 
+    @Transactional
     @Override
     public Response handleInput(String userKey, Map<String, Object> attrs) {
         Response response = null;
