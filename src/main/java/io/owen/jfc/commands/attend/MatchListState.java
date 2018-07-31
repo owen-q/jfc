@@ -56,7 +56,7 @@ public class MatchListState implements CommandHandler {
 
         LocalDate localMathDate = LocalDate.parse(matchDate);
 
-        Optional<Match> maybeTargetMatchInfo = matchRepository.findById(localMathDate);
+        Optional<Match> maybeTargetMatchInfo = matchRepository.findByMatchDate(localMathDate);
 
         // Store match
 
@@ -70,7 +70,7 @@ public class MatchListState implements CommandHandler {
         Response response = null;
 
         response = maybeTargetMatchInfo.map(targetMatchInfo -> {
-            List<User> attendList = targetMatchInfo.getAttendList();
+            List<User> attendList = targetMatchInfo.getAttendUsers();
 
             resultMessageBuilder.append("[참석]\n");
 
@@ -79,7 +79,7 @@ public class MatchListState implements CommandHandler {
             });
 
 
-            List<User> nonAttendList = targetMatchInfo.getNonAttendList();
+            List<User> nonAttendList = targetMatchInfo.getNonAttendUsers();
 
 
             resultMessageBuilder.append("[불참]\n");
@@ -120,7 +120,7 @@ public class MatchListState implements CommandHandler {
         String menuItem = "> %s (%s) 참석:%d, 불참:%d";
 
         availableMatchList.stream().forEach(match->{
-            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), match.getAttendList().size(), match.getNonAttendList().size()) );
+            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), match.getAttendUsers().size(), match.getNonAttendUsers().size()) );
         });
 
         commands.add(UserState.HOME.getValue());

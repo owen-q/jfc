@@ -61,16 +61,19 @@ public class MatchAttendState implements CommandHandler {
         LocalDate matchDate = (LocalDate) cache.get(userKey);
         User attendUser = userRepository.findByUserKey(userKey);
 
-        Optional<Match> maybeMatch = matchRepository.findById(matchDate);
+        Optional<Match> maybeMatch = matchRepository.findByMatchDate(matchDate);
         Response response = null;
 
         response = maybeMatch
                 .map((match)->{
-                    List<User> attendList = match.getAttendList();
+
+                    logger.info("Founded user:: " + attendUser.toString());
+
+                    List<User> attendList = match.getAttendUsers();
 
                     attendList.add(attendUser);
 
-                    match.setAttendList(attendList);
+                    match.setAttendUsers(attendList);
 
                     Match savedMatch = matchRepository.save(match);
 

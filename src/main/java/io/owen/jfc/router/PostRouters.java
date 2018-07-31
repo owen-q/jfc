@@ -86,7 +86,7 @@ public class PostRouters {
 
             if(!userKey.equals("")){
                 if(logger.isInfoEnabled())
-                    logger.info("Store user {}", userKey);
+                    logger.info("Try to save user {} ...", userKey);
 
                 // Save user_key to User.class
                 userRepository.save(new User(userKey));
