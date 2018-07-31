@@ -137,7 +137,13 @@ public class MatchListState implements CommandHandler {
         String menuItem = "> %s (%s) 참석:%d, 불참:%d";
 
         availableMatchList.stream().forEach(match->{
-            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), match.getAttendUsers().size(), match.getNonAttendUsers().size()) );
+
+            List<Attend> attendRecord = attendRepository.findAllByAttendId_MatchId(match.getId());
+
+            long attendCount = attendRecord.stream().filter(attend -> attend.isAttend()).count();
+            long nonAttendCount = attendRecord.size() - attendCount;
+
+            commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), attendCount, nonAttendCount));
         });
 
         commands.add(UserState.HOME.getValue());
