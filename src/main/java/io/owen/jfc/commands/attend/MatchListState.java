@@ -3,8 +3,10 @@ package io.owen.jfc.commands.attend;
 import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.common.entity.Attend;
 import io.owen.jfc.common.entity.Match;
 import io.owen.jfc.common.entity.User;
+import io.owen.jfc.common.repository.AttendRepository;
 import io.owen.jfc.common.repository.MatchRepository;
 import io.owen.jfc.common.repository.UserRepository;
 import io.owen.jfc.model.KeyboardType;
@@ -43,6 +45,9 @@ public class MatchListState implements CommandHandler {
     private UserRepository userRepository;
 
     @Autowired
+    private AttendRepository attendRepository;
+
+    @Autowired
     private Cache cache;
 
     public MatchListState() {
@@ -66,24 +71,36 @@ public class MatchListState implements CommandHandler {
         resultMessageBuilder.append("> "  + matchDate + "\n");
         resultMessageBuilder.append("참석자 현황:\n\n");
 
-
         Response response = null;
 
         response = maybeTargetMatchInfo.map(targetMatchInfo -> {
-            List<User> attendList = targetMatchInfo.getAttendUsers();
 
-            resultMessageBuilder.append("[참석]\n");
+            long matchId = targetMatchInfo.getId();
 
-            attendList.forEach(attendUser -> {
-                resultMessageBuilder.append(attendUser.getUserName() + "\n");
+            List<Attend> attendRecords = attendRepository.findAllByAttendId_MatchId(matchId);
+            List<Long> attendList = new ArrayList<>();
+            List<Long> nonAttendList = new ArrayList<>();
+
+            attendRecords.stream().forEach(attend->{
+                if(attend.isAttend())
+                    attendList.add(attend.getAttendId().getUserId());
+                else
+                    nonAttendList.add(attend.getAttendId().getUserId());
             });
 
 
-            List<User> nonAttendList = targetMatchInfo.getNonAttendUsers();
+            List<User> attendUserList = userRepository.findAllById(attendList);
+            List<User> nonAttendUserList = userRepository.findAllById(nonAttendList);
 
+
+            resultMessageBuilder.append("[참석]\n");
+
+            attendUserList.forEach(attendUser -> {
+                resultMessageBuilder.append(attendUser.getUserName() + "\n");
+            });
 
             resultMessageBuilder.append("[불참]\n");
-            nonAttendList.forEach(nonAttendUser ->{
+            nonAttendUserList.forEach(nonAttendUser ->{
                 resultMessageBuilder.append(nonAttendUser.getUserName() + "\n");
             });
 

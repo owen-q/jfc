@@ -3,8 +3,11 @@ package io.owen.jfc.commands.attend;
 import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
+import io.owen.jfc.common.entity.Attend;
+import io.owen.jfc.common.entity.AttendId;
 import io.owen.jfc.common.entity.Match;
 import io.owen.jfc.common.entity.User;
+import io.owen.jfc.common.repository.AttendRepository;
 import io.owen.jfc.common.repository.MatchRepository;
 import io.owen.jfc.common.repository.UserRepository;
 import io.owen.jfc.core.StateList;
@@ -21,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,6 +42,9 @@ public class MatchAttendState implements CommandHandler {
 
     @Autowired
     private MatchRepository matchRepository;
+
+    @Autowired
+    private AttendRepository attendRepository;
 
     @Autowired
     private StateList stateList;
@@ -67,18 +72,27 @@ public class MatchAttendState implements CommandHandler {
         response = maybeMatch
                 .map((match)->{
 
-                    logger.info("Founded user:: " + attendUser.toString());
+//                    logger.info("Founded user:: " + attendUser.toString());
+//
+//                    List<User> attendList = match.getAttendUsers();
+//
+//                    attendList.add(attendUser);
+//
+//                    match.setAttendUsers(attendList);
+//
+//                    Match savedMatch = matchRepository.save(match);
+//
+//                    matchRepository.flush();
 
-                    List<User> attendList = match.getAttendUsers();
+                    AttendId attendId = new AttendId();
+                    attendId.setMatchId(match.getId());
+                    attendId.setUserId(attendUser.getId());
 
-                    attendList.add(attendUser);
+                    Attend attend = new Attend();
+                    attend.setAttendId(attendId);
+                    attend.setAttend(true);
 
-                    match.setAttendUsers(attendList);
-
-                    Match savedMatch = matchRepository.save(match);
-
-                    matchRepository.flush();
-
+                    attendRepository.save(attend);
                     /*
                     // TODO
                     if(savedMatch.getId() == match.getId())
