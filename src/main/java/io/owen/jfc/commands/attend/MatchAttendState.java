@@ -90,7 +90,7 @@ public class MatchAttendState implements CommandHandler {
 
                     Attend attend = new Attend();
                     attend.setAttendId(attendId);
-                    attend.setAttend(true);
+                    attend.setAttendType(1);
 
                     attendRepository.save(attend);
                     /*

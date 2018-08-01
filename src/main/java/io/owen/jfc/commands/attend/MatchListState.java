@@ -82,7 +82,7 @@ public class MatchListState implements CommandHandler {
             List<Long> nonAttendList = new ArrayList<>();
 
             attendRecords.stream().forEach(attend->{
-                if(attend.isAttend())
+                if(attend.getAttendType() == 1)
                     attendList.add(attend.getAttendId().getUserId());
                 else
                     nonAttendList.add(attend.getAttendId().getUserId());
@@ -140,7 +140,7 @@ public class MatchListState implements CommandHandler {
 
             List<Attend> attendRecord = attendRepository.findAllByAttendId_MatchId(match.getId());
 
-            long attendCount = attendRecord.stream().filter(attend -> attend.isAttend()).count();
+            long attendCount = attendRecord.stream().filter(attend -> attend.getAttendType() == 1).count();
             long nonAttendCount = attendRecord.size() - attendCount;
 
             commands.add(String.format(menuItem, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), attendCount, nonAttendCount));
