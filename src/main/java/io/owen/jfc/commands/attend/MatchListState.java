@@ -92,8 +92,8 @@ public class MatchListState implements CommandHandler {
                     nonAttendList.add(attend.getAttendId().getUserKey());
             });
 
-            List<User> attendUserList = userRepository.findAllByUserKey(attendList);
-            List<User> nonAttendUserList = userRepository.findAllByUserKey(nonAttendList);
+            List<User> attendUserList = userRepository.findAllById(attendList);
+            List<User> nonAttendUserList = userRepository.findAllById(nonAttendList);
 
             resultMessageBuilder.append("[참석]\n");
 

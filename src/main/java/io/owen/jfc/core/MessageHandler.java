@@ -54,7 +54,6 @@ public class MessageHandler {
 
         stateList.getAvailableStateSet().stream().forEach(state->logger.info(state.toString()));
 
-
         // change user input 'content' to next command
         Optional<UserState> optionalNextUserState = stateList.find(content);
 

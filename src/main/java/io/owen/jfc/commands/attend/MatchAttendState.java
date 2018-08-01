@@ -71,19 +71,6 @@ public class MatchAttendState implements CommandHandler {
 
         response = maybeMatch
                 .map((match)->{
-
-//                    logger.info("Founded user:: " + attendUser.toString());
-//
-//                    List<User> attendList = match.getAttendUsers();
-//
-//                    attendList.add(attendUser);
-//
-//                    match.setAttendUsers(attendList);
-//
-//                    Match savedMatch = matchRepository.save(match);
-//
-//                    matchRepository.flush();
-
                     AttendId attendId = new AttendId();
                     attendId.setMatchId(match.getId());
                     attendId.setUserKey(attendUser.getUserKey());
