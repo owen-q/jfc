@@ -75,6 +75,11 @@ public class MessageHandler {
                 stateManager.change(userKey, nextUserState);
             }
             else{
+                if(!isExistUser(userKey)){
+                    User existedUser = new User(userKey);
+                    userRepository.saveAndFlush(existedUser);
+                }
+
                 // unAuthored user
                 List<String> mainCommandList = stateList.getMainCommands();
 
@@ -111,6 +116,15 @@ public class MessageHandler {
         });
 
         return response;
+    }
+
+    private boolean isExistUser(String userKey){
+        User userInfo = userRepository.findByUserKey(userKey);
+
+        if(userInfo == null)
+            return false;
+        else
+            return true;
     }
 
     private boolean isAuthoredUser(String userKey){
