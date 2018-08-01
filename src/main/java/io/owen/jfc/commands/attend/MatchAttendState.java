@@ -86,7 +86,7 @@ public class MatchAttendState implements CommandHandler {
 
                     AttendId attendId = new AttendId();
                     attendId.setMatchId(match.getId());
-                    attendId.setUserId(attendUser.getId());
+                    attendId.setUserKey(attendUser.getUserKey());
 
                     Attend attend = new Attend();
                     attend.setAttendId(attendId);

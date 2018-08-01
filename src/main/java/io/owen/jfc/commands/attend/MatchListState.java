@@ -4,6 +4,7 @@ import io.owen.jfc.commands.Command;
 import io.owen.jfc.commands.CommandHandler;
 import io.owen.jfc.commands.UserState;
 import io.owen.jfc.common.entity.Attend;
+import io.owen.jfc.common.entity.AttendId;
 import io.owen.jfc.common.entity.Match;
 import io.owen.jfc.common.entity.User;
 import io.owen.jfc.common.repository.AttendRepository;
@@ -76,22 +77,23 @@ public class MatchListState implements CommandHandler {
         response = maybeTargetMatchInfo.map(targetMatchInfo -> {
 
             long matchId = targetMatchInfo.getId();
+            AttendId attendId = new AttendId();
+            attendId.setUserKey(attendId.getUserKey());
+            attendId.setMatchId(matchId);
 
             List<Attend> attendRecords = attendRepository.findAllByAttendId_MatchId(matchId);
-            List<Long> attendList = new ArrayList<>();
-            List<Long> nonAttendList = new ArrayList<>();
+            List<String> attendList = new ArrayList<>();
+            List<String> nonAttendList = new ArrayList<>();
 
             attendRecords.stream().forEach(attend->{
                 if(attend.getAttendType() == 1)
-                    attendList.add(attend.getAttendId().getUserId());
+                    attendList.add(attend.getAttendId().getUserKey());
                 else
-                    nonAttendList.add(attend.getAttendId().getUserId());
+                    nonAttendList.add(attend.getAttendId().getUserKey());
             });
 
-
-            List<User> attendUserList = userRepository.findAllById(attendList);
-            List<User> nonAttendUserList = userRepository.findAllById(nonAttendList);
-
+            List<User> attendUserList = userRepository.findAllByUserKey(attendList);
+            List<User> nonAttendUserList = userRepository.findAllByUserKey(nonAttendList);
 
             resultMessageBuilder.append("[참석]\n");
 
