@@ -83,7 +83,7 @@ public class MatchNonAttendState implements CommandHandler {
                     StringBuilder resultMessageBuilder = new StringBuilder();
 
                     String messageFormat = "> %s (%s) 경기에 %s되었습니다.";
-                    resultMessageBuilder.append(String.format(messageFormat, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), UserState.MATCH_ATTEND.getValue()));
+                    resultMessageBuilder.append(String.format(messageFormat, match.getMatchDate().format(DateTimeFormatter.ISO_DATE), WeekConverter.convert(match.getMatchDate().getDayOfWeek()), UserState.MATCH_NONATTEND.getValue()));
 
                     Response successResponse = new ResponseBuilder()
                             .keyboardType(KeyboardType.BUTTONS)
