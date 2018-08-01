@@ -115,6 +115,10 @@ public class MessageHandler {
 
     private boolean isAuthoredUser(String userKey){
         User userInfo = userRepository.findByUserKey(userKey);
+
+        if(userInfo == null)
+            return false;
+
         return userInfo.isAuthored();
     }
 
